@@ -676,7 +676,137 @@ transform: scale(0.96);
             .replace(/'/g, '&#39;');
     };
     </script>
-<style id="v1131-AUTO-FIRST-TIME-STAFF-ONBOARDING-GATE">header.no-print{position:relative;z-index:45!important}#topExecutiveReportDropdownMenu,#outsourceHubDropdownMenu,#pmSuiteDropdownMenu,#manualSearchMenu{z-index:9998!important;max-height:80vh;overflow-y:auto}@media(min-width:640px){#topExecutiveReportDropdownMenu{position:fixed!important;right:24px!important;top:76px!important;left:auto!important;width:340px!important}#manualSearchMenu{position:fixed!important;right:24px!important;top:130px!important;left:auto!important;width:400px!important}}</style></head>
+<style id="v1131-AUTO-FIRST-TIME-STAFF-ONBOARDING-GATE">header.no-print{position:relative;z-index:45!important}#topExecutiveReportDropdownMenu,#outsourceHubDropdownMenu,#pmSuiteDropdownMenu,#manualSearchMenu{z-index:9998!important;max-height:80vh;overflow-y:auto}@media(min-width:640px){#topExecutiveReportDropdownMenu{position:fixed!important;right:24px!important;top:76px!important;left:auto!important;width:340px!important}#manualSearchMenu{position:fixed!important;right:24px!important;top:130px!important;left:auto!important;width:400px!important}}</style><script id="hzk-universal-deferred-fallback-loader-v1191">
+(function() {
+  if (window._hzkUniversalFallbackLoaderInstalled) return;
+  window._hzkUniversalFallbackLoaderInstalled = true;
+
+  // Alias compatibility: openFullscreenSignature -> openFullscreenSigModal
+  if (typeof window.openFullscreenSignature !== 'function') {
+    window.openFullscreenSignature = function(targetId, titleText) {
+      if (typeof window.openFullscreenSigModal === 'function') {
+        return window.openFullscreenSigModal(targetId, titleText || 'ลงลายมือชื่อ (Signature)');
+      }
+    };
+  }
+
+  const SCRIPT_MAP = {
+    enterprise: './hzk_enterprise_modules.js?v=1192',
+    addon: './hzk_sales_crm_quotation_addon.js?v=1192'
+  };
+
+  const ENTERPRISE_FNS = ["HOSHIZAKI_QUOTATION_ARCHIVE", "HZK_CURRENT_LANG", "_activeOmniShareCtx", "_hzkWfhStream", "_uaiCurrentBadge", "_uaiCurrentBgHex", "_uaiCurrentPreviewImg", "add100SeatUserAccount", "addCustomV1040SampleRecord", "addExhibitionEventLead", "addExplodedPartToJobOrQt", "addFlexStudioBodyRow", "addFlexStudioButton", "addOrUpdateDealerChannelEntry", "addPickedPartToActiveJob", "addSalesCrmDeal", "addStandaloneQtLineItemFromInput", "addUnitLevelDealerOwnership", "addWaterQualityRecord", "adminBulkImportStaffSeats", "adminCreateNewStaffCredential", "adminGenerateTempPassword", "adminResetStaffPassword", "adminSuspendStaffAccount", "adminUnlockStaffAccount", "adminUpdateStaffRbacRole", "advanceB2b10StepCase", "advanceV1040PrApprovalStage", "analyzeSmartFuzzyQuery", "appendStandaloneQtRemarkPreset", "appendSystemAuditLog", "applyAiCreativePromptToFlexStudio", "applyCleanParentSubmenuArchitecture", "applyModelSpecToFlexStudio", "applyRbacRoleViewFiltering", "applySelectedQtCustodianOption", "applySmartBranchNumberToCurrentJob", "applySmartWhiteBgCutoutToStudioPhoto", "applySplitDepositToQuotation", "approveHrWorkflowItemNow", "autoFillQuotationFromSystemSn", "buildAndPreview3ModelCarousel", "buildThaiPromptPayEmvPayload", "calculateIceRoiPayback", "calculateProvincialTravelEstimate", "captureCurrentWorkInProgressSnapshot", "captureWfhSelfieAndStamp_", "checkAndTriggerAutoBirthdayGreeting", "checkPhotoComplianceGate", "checkoutOrReturnToolLoaner", "clearStandaloneQtCustomItems", "closeAiNextGenServiceHubModal", "closeAllImsFloatingMenus", "closeEnterpriseGovernanceEhsErpModal", "closeEnterpriseInventoryImsModal", "closeImsSubmenus", "closeIotTelemetryHubModal", "completeCrossDeptHandoffTask", "composeFlexStudioAdPosterDataUrl", "computeWeeklyExpensePayoutCycle", "confirmB2bPoAndSync", "confirmPromptPaySettledAndIssueETax", "confirmQrEpodDelivery", "convertCrmDealToQuotation", "convertFlexStudioCardToQuotation", "copyActiveJobSummaryAndOpenLineOa", "copyLastGeneratedTempPassword", "create3plCourierDispatch", "createAuto4HcHRenewalQuote", "createCrossDeptHandoffTask", "createDealerSubcontractJobAndQt", "createDefectivePartReturnTag", "createNewBlankFlexStudioTemplate", "createNewCustomKpiReport", "createPredictiveUpsellQuotation", "createRentalIaasContract", "currentOfferNo", "decideSpecialDiscountRequest", "deductImsStockFifo", "deduplicateHoshizakiDatabasesNow", "deleteHrSampleRecord", "deleteKpiReportById", "deleteSingleV1040SampleRecord", "detectQueryLanguageTrilingual", "downloadBirthdayCardAsImage", "downloadCurrentDocumentPdfV1079", "downloadFlexStudioPosterPng", "downloadUpdatedV1054TrilingualManualHtml", "evaluateTechSimulatorAnswer", "executeOmniCommand", "executeOmniShareAction", "exportAseanHqRegionalPackCsv", "exportDynamicsNavErpCsv", "exportImsFullWorkbookCsv", "exportJobcanHqJapanCsv", "exportOrShareDocumentAsImageV1079", "exportSecurityAuditCsv", "exportSingleKpiReportExcel", "filterFlexStudioSavedTemplates", "filterLineDirTableRows", "filterLoginStaffDirectoryList", "generateAiSocialAdPackNow", "generateFilter4HcRenewalQuote", "generateMonthlyRentalInvoice", "generateNextBranchJobNo", "generateNextBranchQuotationNo", "generatePromptPayAndETaxNow", "generatePromptPayQrAndInstantETax", "generateTeamsAndOutlookInvite", "generateUnifiedAiCardNow", "getActiveHoshizakiBranch", "getHzkModelSpecForCreativeStudio", "getSmartRoleFilteredAlerts", "handleCasePhotoUploadV1129", "handleFlexStudioImageUpload", "hzkEmitCrossModuleEvent", "importDailyStockExcelFileNow", "importIotMetricsIntoActiveJob", "incrementQuotationRevisionV1076", "ingestHoshizakiIotTelemetryPayload", "issueConsolidatedChainStatement", "launchB2bPartnerSelfServiceView", "launchHoshizakiLineOaChat", "loadAllV1040ExampleRecords", "loadDealerIntoEditForm", "loadEmployeeBdayFormById", "loadExistingQuotationForEdit", "loadFlexStudioTemplateById", "loadFlexStudioTemplateById_fromState", "maskSensitiveEmail", "maskSensitivePhone", "onSelectLineDirDropdownAccount", "onStandaloneQtCustomerTyping", "onStandaloneQtPartSelect", "open3plLogisticsAndAgingModal", "openAiChatbotOrchestratorModal", "openAiNextGenServiceHubModal", "openB2bQtRound2InMainForm", "openBatchMachineQrStickersWindow", "openChangeOwnPasswordBox", "openContextualHelpDrawer", "openCrossDeptHandoffHubModal", "openDeepB2bChainAndDealerPortalModal", "openDeepSystemAuditV1058Modal", "openEmployeeBirthdayProfileModal", "openEnterpriseGovernanceEhsErpModal", "openEnterpriseInventoryImsModal", "openEnterpriseLifecycleSuiteModal", "openEnterpriseUnifiedCommandHubV1129", "openGeoTravelCostEstimatorModal", "openHrWorkflowSuiteModal", "openHybridAccountingNavModal", "openIotTelemetryHubModal", "openKpiReportStudioModal", "openLineChatbotSimulatorModal", "openLineOaInquiryCrmModal", "openMarketingAndEmailSyncModal", "openMultiBranchSwitcherModal", "openNextGenAutonomousServiceModal", "openOmniCommandPaletteModal", "openOmniScaleEnterpriseV1057Modal", "openOnboardingCredentialSlipModal", "openPmLifecycleRenewalRadarModal", "openPredictiveHealthAndCopilotModal", "openPredictiveQuoteAutomatorModal", "openRevenueLeakageAuditModal", "openSaleMarketingGrowthModal", "openStaffOnboardingModalV1131", "openStorageColdArchiveModal", "openTechSkillAndOtModal", "openUnifiedAiContentAndCardStudio", "openUnifiedCloudSyncHubModal", "openUnifiedEndToEndFlowHubModal", "openUnifiedOmniShareHubModal", "openV1040ExampleSandboxModal", "openV1059UltimateRoadmapHubModal", "openVoiceTeamsAndJobcanHqModal", "parseVoiceTeamsPromptToForm", "parseVoiceTextToJobFields", "postNewNavJournalEntry", "previewActiveEmployeeBirthdayCard", "previewCorporateWorkflowFormA4", "previewSingleKpiReport", "previewSingleV1040SampleDocument", "proDockConvertQtToInvoice", "proDockOpenQuotationFromJob", "proDockSaveJobUpsert", "proDockSaveQuotationUpsert", "proDockShareJobAction", "proDockShareQtAction", "pullCloudSecurityAuditLogs", "pullUserCredentialsVaultFromCloud", "purgeAllV1040ExampleRecords", "pushSecurityAuditEventImmediate", "pushTestToLineDirAccount", "quickAddStandaloneQtPreset", "quickIssueFifoFromUi", "quickRestoreExistingStaffProfileV1176", "recalcImsSimulator", "receiveImsStockBatch", "recordAiDiagnosticFeedback", "recordEsgRefrigerantEntry", "recordLineOaInquiryCrmEntry", "refreshFlexStudioPreview", "refreshSavedQtOffersDatalist", "refreshStandaloneQtPartPrice", "refreshUnifiedAiCardPreview", "regenerateFlexStudioVisualPoster", "registerBiometricDevicePasskey", "registerNewIotDeviceMapping", "removeFlexStudioBodyRow", "removeFlexStudioButton", "removeStandaloneQtItemAt", "render3plModalBody_", "renderAdminSecurityRbacPanel", "renderDeepB2bPortalBody_", "renderEnterpriseImsMasterTable", "renderFlexStudioTabV1065", "renderGovEhsBody_", "renderHrWorkflowBody_", "renderHybridAccountingNavBody_", "renderKpiStudioBody_", "renderLifecycleSuiteTab_", "renderLineDirectoryTabV1065", "renderMktEmailBody_", "renderMlCaseMatchesV1129", "renderMyDailyRoleWorkspace", "renderNextGenAutonomousTab_", "renderOmniCommandResults", "renderPredictiveCopilotBody_", "renderQuickPartsGrid_", "renderSaleMarketingTab_", "renderUnifiedAiStudioTab_", "renderUnifiedFlowHubTab_", "renderV1057Tab_", "renderV1059UltimateHubTab_", "renderVoiceTeamsBody_", "requestCriticalActionLineOtp", "resolveHoshizakiGasUrl", "restoreDefault5KpiSampleReports", "restoreWorkInProgressSnapshotIfNeeded", "rollUpExpensesFromServiceJobs", "runAiVisionPhotoInspection", "runAutonomousSelfHealingSweepV1127", "runBatchReceiptOcrScan", "runComprehensiveSelfTestAndAutoHealV1040", "runExecutiveAiCopilotQuery", "runGeoTravelCalcNow", "runJobAutoSaveV1076", "runProductionGoLiveCleanReset", "runRealTimeNavErpBiDirectionalSync", "runSimulatedBotMessage", "runStorageColdArchiveCompaction", "runStructuralAuditV1060", "runUnifiedAutoCloudSyncCycle", "runUnifiedInputOutputPipeline", "runVisualPartPhotoMatch", "safeBackupAndUpdateAppNow", "safeLocalStorageSetItem", "saveAiGatewayCfgForm", "saveAndPushUnifiedAiCardToFlexStudio", "saveCompletedCaseMlV1129", "saveCurrentFlexStudioTemplate", "saveEmployeeBdayProfileForm", "saveIotBridgeSettingsForm", "saveLineAccountDirectoryEntry", "saveLineOaChatUrls", "saveStaffOnboardingProfileV1131", "saveStandaloneQuotationFullCycle", "saveVoiceSuggestionV1129", "selectStandaloneQtCustomerSuggestion", "selectUserForPasswordGate", "sendExecutiveFunnelCardToMgmtNow", "sendFlexStudioCardNow", "setActiveHoshizakiBranch", "setJobLifecycleStage", "setUnifiedCloudSyncPillState", "shareBirthdayWishToLineGroup", "showHoshizakiBirthdayGreetingCard", "simulateCustomerSnRouting_", "simulateEndToEndScenario", "simulateLiveIotTelemetryPing", "softLockReserveAgingUnit", "standardizeAllModalsAndPopupsV1058", "startAiVoiceToReport", "startArPinoutOverlayCamera", "startFreshStandaloneQuotation", "startHoshizakiVoiceRecognitionV1122", "startVoiceCreativeDirectorForFlexStudio", "startVoiceTeamsMeetingCapture", "stopArPinoutOverlayCamera", "stopWfhCameraStream_", "submitB2bUrgentServiceDispatch", "submitChangeOwnPassword", "submitImsGrnForm", "submitImsIssueForm", "submitNewLeaveRequestForm", "submitSpecialDiscountRequest", "switchAiHubTab", "switchBotDealerTab", "switchEnterpriseImsTab", "switchGovEhsTab", "switchIotHubTab", "syncAssetHealthToCloud", "syncComposedBannerToGoogleDrive", "syncImsWithAllEcosystemModules", "syncStandaloneQtMetaToDoc", "syncStandaloneQtRemarkToDoc", "syncUserCredentialsVaultToCloud", "testBiDirectionalNavSyncNow", "toggleExecutiveSafeDemoSandboxV1127", "toggleImsCoreSubmenuDropdown", "toggleImsFloatingMenu", "toggleImsSupplySubmenuDropdown", "toggleImsVanSubmenuDropdown", "toggleJobDockShareMenu", "toggleNavFullErpStandbyMode", "toggleQtDockShareMenu", "toggleStandaloneQtEditorCollapse", "triggerAutoSheetsBackupWithStatus", "triggerB2bBulkPmSchedule", "triggerDealerFollowUpScanNow", "triggerFilterPmAutopilotNow", "triggerMobileAutoStampNow", "triggerOneClickPredictiveLineFlex", "triggerOneClickPredictiveQuote", "unlockWithBiometricPasskey", "updateDealerRowChannelQuick", "updateEmpBdayComputedPreview", "updateInquiryActionOutcome", "updateV1057InfraConfig", "verifyAndUnlockStaffSession", "verifyPreSendAudienceGuardrail"];
+  const ADDON_FNS = ["HZK_ACCOUNTING_DIGITAL_SIGNATURES", "__HZK_ACCOUNTING_TAX_INVOICE_V1182__", "__HZK_ADMIN_DELIVERY_ORDER_V1183__", "__HZK_CLOSED_LOOP_FULFILLMENT_V1184__", "__HZK_ENTERPRISE_OMNI_SUITE_V1185__", "__HZK_PM_BIG_CLEANING_V1181__", "__HZK_PRODUCTION_HARDENING_V1186__", "_hzkRuntimeGuardInstalled", "addSp360PartToCurrentJob", "applyPmBigCleaningData", "applyPmCycleRecommendation", "applyV1188ServiceFirstFocusMode", "approvePmReportByManager", "autoAnalyzePmSiteAndMachine", "callGasApi", "collectPmBigCleaningData", "convertCurrentServiceJobToPmReport", "exportErpSalesOrdersCsv", "getV1188FocusMode", "handlePmWideAnglePhotoUpload", "handleV1188PartPhotoUpload", "isStrictRoleLockEnabledV1186", "loadV1188MasterPartsCatalog", "logGoLiveAdoptionEventV1180", "openAccountingTaxInvoiceStudioModal", "openAdminDeliveryOrderStudioModal", "openArAgingAndBudgetModal", "openCustomerDealerPortalWindow", "openDamageDemoStockModal", "openDemoLoanerAndMultiPmModal", "openDepartmentLiveSimulatorModal", "openDepartmentReportCenterModal", "openDepartmentRoleSopModal", "openDepartmentTaskBoardModal", "openDocumentTrackingDashboardModal", "openDrivePdfFromPart1188_", "openEnterpriseOmniCommandCenterV1185", "openExecutiveBiDashboardModal", "openFieldGeoCheckinAndQcModal", "openFieldRepairPartsPipelineModal", "openLiveStockSnapshotModal", "openModelComparisonRoiModal", "openMonthlyIncentiveKpiModal", "openOmniMeetAndAiMinutesModal", "openOutputVatAndDoRegisterModal", "openOutsourceAndDealerClaimHubModal", "openPersonalAppDrawerModal", "openPersonalEmployeeSelectorModal", "openPmA4PrintableReportWindow", "openPmReportStudioModal", "openPreInstallSiteSurveyModal", "openProductionGoLiveQaModal", "openSalesCorporateQuotationModal", "openSandboxAndGovernanceModal", "openSerial360TimelineModal", "openSerialLifecyclePricingSuiteModal", "openSerialStockPickerForDocModal", "openServiceControlTowerV1188Modal", "openServiceDispatchCalendarModal", "openSmartShareableLinksPreviewModal", "openSmartSpareParts360Modal", "openTechnicianVanStockModal", "openWarrantyPmRenewalModal", "openZeroFrictionPipelineAndOcrModal", "promptEditPartCrossRef1188_", "registerCustomModelPhotoUrl", "renderPersonalizedEmployeeCockpit", "runDeepSystemDiagnosticModal", "runSp360Search", "saveNewSp360ManualEntry_", "sendHoshizakiTrackedDocument", "sendPmReportTrackedToCustomer", "setV1188FocusMode", "sharePartPhotoAndInfo1188_", "submitPmReportForManagerReview", "switchSp360SearchMode", "syncPmAmbientToMainGauge", "syncPmNextAppointmentToAnnualScheduler", "toggleStrictRoleLockV1186", "triggerEmailStockSyncNow"];
+
+  const loadingPromises = {};
+  const pendingCalls = [];
+
+  function showLoadingBanner_(msg) {
+    let banner = document.getElementById('hzkDeferredLoaderBanner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'hzkDeferredLoaderBanner';
+      banner.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99999;background:#002B49;color:#fff;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;box-shadow:0 8px 24px rgba(0,43,73,0.35);border:1px solid #00A3E0;display:flex;align-items:center;gap:8px;pointer-events:none;transition:opacity .2s;';
+      document.body ? document.body.appendChild(banner) : document.addEventListener('DOMContentLoaded', function() { document.body.appendChild(banner); });
+    }
+    banner.innerHTML = '<span style="display:inline-block;width:12px;height:12px;border:2px solid #38bdf8;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;"></span><span>' + (msg || 'กำลังโหลดโมดูลระบบ...') + '</span>';
+    banner.style.opacity = '1';
+  }
+
+  function hideLoadingBanner_() {
+    const banner = document.getElementById('hzkDeferredLoaderBanner');
+    if (banner) {
+      banner.style.opacity = '0';
+      setTimeout(function() { if (banner && banner.parentNode) banner.parentNode.removeChild(banner); }, 220);
+    }
+  }
+
+  function ensureScriptLoaded_(bundleKey) {
+    if (loadingPromises[bundleKey]) return loadingPromises[bundleKey];
+    const src = SCRIPT_MAP[bundleKey];
+    if (!src) return Promise.resolve();
+
+    // Check if script tag already exists in DOM
+    const existing = Array.from(document.scripts || []).find(function(s) {
+      return s.src && s.src.indexOf(src.split('?')[0].replace('./', '')) !== -1;
+    });
+
+    loadingPromises[bundleKey] = new Promise(function(resolve) {
+      if (existing && existing.dataset && existing.dataset.hzkLoaded === '1') {
+        return resolve(true);
+      }
+      const s = document.createElement('script');
+      s.src = src + '&retry=' + Date.now();
+      s.async = false;
+      s.onload = function() {
+        s.dataset.hzkLoaded = '1';
+        resolve(true);
+      };
+      s.onerror = function() {
+        console.warn('[HZK Loader] Failed to load bundle:', src);
+        resolve(false);
+      };
+      (document.head || document.documentElement).appendChild(s);
+    });
+    return loadingPromises[bundleKey];
+  }
+
+  function registerProxy_(fnName, bundleKey) {
+    // Only install stub if not yet defined; once the real script loads, it overwrites window[fnName]
+    if (typeof window[fnName] === 'function') return;
+    const proxyFn = function() {
+      const args = Array.prototype.slice.call(arguments);
+      const ctx = this;
+      showLoadingBanner_('กำลังเตรียมโมดูล ' + fnName + '...');
+      return ensureScriptLoaded_(bundleKey).then(function() {
+        hideLoadingBanner_();
+        const realFn = window[fnName];
+        if (typeof realFn === 'function' && !realFn._isHzkDeferredProxy) {
+          return realFn.apply(ctx, args);
+        }
+        // Retry once after short tick in case deferred script is finishing execution
+        return new Promise(function(res) {
+          setTimeout(function() {
+            const retryFn = window[fnName];
+            if (typeof retryFn === 'function' && !retryFn._isHzkDeferredProxy) {
+              res(retryFn.apply(ctx, args));
+            } else {
+              console.warn('[HZK Loader] Function still unavailable after load:', fnName);
+              res(undefined);
+            }
+          }, 180);
+        });
+      });
+    };
+    proxyFn._isHzkDeferredProxy = true;
+    window[fnName] = proxyFn;
+  }
+
+  ENTERPRISE_FNS.forEach(function(fn) { registerProxy_(fn, 'enterprise'); });
+  ADDON_FNS.forEach(function(fn) { registerProxy_(fn, 'addon'); });
+
+  // Early capture-phase error suppressor for transient ReferenceError on known deferred functions
+  window.addEventListener('error', function(ev) {
+    const msg = (ev && ev.message) || '';
+    const m = msg.match(/([A-Za-z_$][A-Za-z0-9_$]*) is not defined/);
+    if (m && m[1]) {
+      const missingFn = m[1];
+      if (ENTERPRISE_FNS.indexOf(missingFn) !== -1) {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+        registerProxy_(missingFn, 'enterprise');
+        window[missingFn]();
+      } else if (ADDON_FNS.indexOf(missingFn) !== -1) {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+        registerProxy_(missingFn, 'addon');
+        window[missingFn]();
+      }
+    }
+  }, true);
+})();
+</script>
+</head>
 <body class="p-2 sm:p-4 md:p-6 pb-24 sm:pb-6 min-h-screen">
 <!-- v19.0 Universal Top-Right Red CLOSE Button for All Popups -->
 <button type="button" id="universalModalRedCloseBar" onclick="closeTopmostActivePopupModal()" title="ปิดหน้าต่างนี้ (ESC)">
@@ -41534,7 +41664,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
 </div>
 </div>
 
-<script src="./hzk_enterprise_modules.js" defer></script>
+<script src="./hzk_enterprise_modules.js?v=1192" defer onload="this.dataset.hzkLoaded='1'"></script>
 <script>
 (function() {
   let _partsDatalistHydrated = false;
@@ -41664,7 +41794,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   setTimeout(window.installUnifiedDualLineTabRouterV1065, 1000);
 })();
 </script>
-<script src="./hzk_sales_crm_quotation_addon.js?v=1188"></script>
+<script src="./hzk_sales_crm_quotation_addon.js?v=1192" onload="this.dataset.hzkLoaded='1'"></script>
 
 <style id="v1167-ENHANCED-DARKMODE-AND-BRIDGE-CSS">
   /* Hide multi-branch selector bars cleanly (Locked to BKK Head Office) */

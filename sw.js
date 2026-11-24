@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hoshizaki-service-pwa-v1189-stock-20261124';
+const CACHE_NAME = 'hoshizaki-service-pwa-v1192-omni-release-ready';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -30,7 +30,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = event.request.url || '';
-  if (url.endsWith('.js') || url.endsWith('.json') || url.endsWith('.html') || event.request.mode === 'navigate') {
+  const cleanPath = url.split('?')[0];
+  if (cleanPath.endsWith('.js') || cleanPath.endsWith('.json') || cleanPath.endsWith('.html') || event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then((res) => {

@@ -3309,6 +3309,7 @@
 
     window.addEventListener('error', function (ev) {
       if (ev && ev.message) {
+        if (/is not defined/.test(ev.message) && ev.defaultPrevented) return;
         console.warn('[HZK Guard] Caught runtime error:', ev.message);
         showHzkToastNotification('⚠️ แจ้งเตือนระบบ: ' + ev.message, true);
       }

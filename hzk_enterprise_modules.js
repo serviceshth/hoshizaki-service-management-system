@@ -10386,6 +10386,9 @@
         if (typeof openFullscreenSignature === 'function') {
           const targetId = cv.id || (idx === 0 ? 'customerSigCanvas' : 'techSigCanvas');
           openFullscreenSignature(targetId);
+        } else if (typeof openFullscreenSigModal === 'function') {
+          const targetId = cv.id || (idx === 0 ? 'customerSigCanvas' : 'techSigCanvas');
+          openFullscreenSigModal(targetId, 'ลงลายมือชื่อ (Signature)');
         } else {
           overlay.classList.add('hidden');
         }
