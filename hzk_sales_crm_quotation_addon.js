@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * HOSHIZAKI (THAILAND) LIMITED — ENTERPRISE COMPLETE SUITE (v1146)
+ * HOSHIZAKI (THAILAND) LIMITED — ENTERPRISE COMPLETE SUITE (v1188-SERVICE-FIRST-CONTROL)
  * Features:
  *   1) 7-Department Group CC / BCC & Multi-LINE Group Distribution Pills (Auto-Suggest + Deduplicate)
  *   2) Customer Tax ID (13 Digits) & Branch (Head Office / Branch No.) + 1-Click Convert to Billing/Receipt
@@ -25,7 +25,7 @@
   ];
 
   const HZK_OMNI_STATE = {
-    version: 'v1187-DEEP-SCAN-100PCT-LINKED',
+    version: 'v1188-SERVICE-FIRST-CONTROL',
     masterDb: null,
     items: []
   };
@@ -1366,7 +1366,7 @@
       <div style="background:#FFFFFF;width:100%;max-width:1100px;max-height:95vh;overflow-y:auto;border-radius:16px;box-shadow:0 20px 45px rgba(0,0,0,0.35);font-family:sans-serif;">
         <div style="background:#002B49;color:#FFFFFF;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:2;gap:8px;flex-wrap:wrap;">
           <div>
-            <div style="font-size:11px;color:#38BDF8;font-weight:800;letter-spacing:0.05em;">HOSHIZAKI (THAILAND) LIMITED — ENTERPRISE COMPLETE SUITE (v1146)</div>
+            <div style="font-size:11px;color:#38BDF8;font-weight:800;letter-spacing:0.05em;">HOSHIZAKI (THAILAND) LIMITED — ENTERPRISE COMPLETE SUITE (v1188-SERVICE-FIRST-CONTROL)</div>
             <div style="font-size:16px;font-weight:700;">ระบบออกเอกสาร &amp; เชื่อมงานข้ามแผนก <span id="hzkSqAutoSaveBadge" style="font-size:11px;background:#065F46;color:#A7F3D0;padding:2px 8px;border-radius:999px;margin-left:6px;">● Auto-Save Ready</span></div>
           </div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
@@ -10754,3 +10754,818 @@ window.openLiveStockSnapshotModal = async function () {
   document.getElementById('hzkLiveStockFilterSel').onchange = renderStockRows;
   renderStockRows();
 };
+
+
+// ============================================================================
+// HOSHIZAKI ENTERPRISE v1188-SERVICE-FIRST-CONTROL
+// 1. Service-First Clean Focus Mode (Hides non-Service dept menus by default)
+// 2. Service Control Tower (Active Jobs, Van Stock T01-T08, 30-Day PM, QA Gate)
+// 3. Smart Spare Parts 360° Cross-Reference, Model-First View & Photo Hub
+// ============================================================================
+(function() {
+    const V1188_FOCUS_MODE_KEY = 'hzk_v1188_service_first_focus_mode'; // 'SERVICE_ONLY' | 'ALL_DEPTS'
+    const V1188_PART_PHOTOS_KEY = 'hzk_v1188_custom_part_photos_v1';
+    const V1188_PART_NOTES_KEY = 'hzk_v1188_custom_part_notes_v1';
+    const V1188_PART_OVERRIDES_KEY = 'hzk_v1188_custom_part_overrides_v1';
+
+    let v1188PartsCache = null;
+    let v1188PartsLoadPromise = null;
+
+    function esc1188_(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function getCustomPartPhotos_() {
+        try { return JSON.parse(localStorage.getItem(V1188_PART_PHOTOS_KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function saveCustomPartPhotos_(map) {
+        localStorage.setItem(V1188_PART_PHOTOS_KEY, JSON.stringify(map));
+    }
+    function getCustomPartNotes_() {
+        try { return JSON.parse(localStorage.getItem(V1188_PART_NOTES_KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function saveCustomPartNotes_(map) {
+        localStorage.setItem(V1188_PART_NOTES_KEY, JSON.stringify(map));
+    }
+    function getCustomPartOverrides_() {
+        try { return JSON.parse(localStorage.getItem(V1188_PART_OVERRIDES_KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function saveCustomPartOverrides_(map) {
+        localStorage.setItem(V1188_PART_OVERRIDES_KEY, JSON.stringify(map));
+    }
+
+    window.getV1188FocusMode = function() {
+        return localStorage.getItem(V1188_FOCUS_MODE_KEY) || 'SERVICE_ONLY';
+    };
+
+    window.setV1188FocusMode = function(mode) {
+        const next = (mode === 'ALL_DEPTS') ? 'ALL_DEPTS' : 'SERVICE_ONLY';
+        localStorage.setItem(V1188_FOCUS_MODE_KEY, next);
+        window.applyV1188ServiceFirstFocusMode();
+        if (typeof showToast === 'function') {
+            showToast(next === 'SERVICE_ONLY'
+                ? '🛡️ เปิดโหมด Service-First Focus (ซ่อนเมนูแผนกอื่นเพื่อให้ทีมบริการใช้งานง่ายที่สุด)'
+                : '🌐 ปลดล็อกโหมดทุกแผนก (Omni-Mode) เรียบร้อยแล้ว');
+        }
+    };
+
+    window.applyV1188ServiceFirstFocusMode = function() {
+        const mode = window.getV1188FocusMode();
+        const isServiceOnly = (mode === 'SERVICE_ONLY');
+
+        // Hide or show non-service toolbar categories / buttons cleanly
+        const nonServiceSelectors = [
+            '[data-toolbar-cat="IMS_INVENTORY"]',
+            '[data-toolbar-cat="HR_WORKFLOW"]',
+            '#btnCat_IMS_INVENTORY',
+            '#btnCat_HR_WORKFLOW',
+            '#btnOpenSalesQuotationSuite',
+            '#btnOpenAccountingTaxInvoiceSuite',
+            '#btnOpenAdminDeliveryOrderSuite',
+            '#btnOpenMarketingSocialStudio',
+            '#btnOpenHrWorkflowPortal',
+            '#btnOpenImsWarehouseSuite'
+        ];
+        nonServiceSelectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+                el.style.display = isServiceOnly ? 'none' : '';
+            });
+        });
+
+        // Filter department selector options in cockpit if present
+        const deptSel = document.getElementById('cockpitDeptFilter') || document.getElementById('staffCockpitDeptSelect');
+        if (deptSel && isServiceOnly) {
+            Array.from(deptSel.options || []).forEach(opt => {
+                const v = String(opt.value || '').toUpperCase();
+                if (v && v !== 'ALL' && v !== 'SERVICE' && v !== 'SERVICE_CENTER' && v !== 'OUTSOURCE') {
+                    opt.hidden = true;
+                } else {
+                    opt.hidden = false;
+                }
+            });
+        } else if (deptSel) {
+            Array.from(deptSel.options || []).forEach(opt => { opt.hidden = false; });
+        }
+
+        const toggleBtn = document.getElementById('btnV1188ToggleFocusMode');
+        if (toggleBtn) {
+            toggleBtn.innerHTML = isServiceOnly
+                ? '<i class="fa-solid fa-shield-halved text-emerald-300 mr-1"></i><span>Service Focus</span><span class="ml-1 text-[9px] bg-white/20 px-1.5 rounded">ปลดล็อกทุกแผนก</span>'
+                : '<i class="fa-solid fa-layer-group text-amber-300 mr-1"></i><span>Omni-Mode (ทุกแผนก)</span><span class="ml-1 text-[9px] bg-white/20 px-1.5 rounded">กลับโหมด Service</span>';
+        }
+    };
+
+    // Load 9,425+ Master Parts Catalog (Offline JSON + Local Overrides)
+    window.loadV1188MasterPartsCatalog = async function() {
+        if (v1188PartsCache) return v1188PartsCache;
+        if (v1188PartsLoadPromise) return v1188PartsLoadPromise;
+
+        v1188PartsLoadPromise = (async () => {
+            let baseList = [];
+            try {
+                const res = await fetch('./parts_catalog.json?v=1188');
+                if (res.ok) {
+                    const data = await res.json();
+                    baseList = Array.isArray(data.parts) ? data.parts : (Array.isArray(data) ? data : []);
+                }
+            } catch (e) {
+                console.warn('v1188 parts_catalog fetch fallback:', e);
+            }
+            const overrides = getCustomPartOverrides_();
+            const mergedMap = new Map();
+            baseList.forEach(p => {
+                if (p && p.partNo) mergedMap.set(String(p.partNo).toUpperCase(), Object.assign({}, p));
+            });
+            Object.keys(overrides).forEach(k => {
+                const up = k.toUpperCase();
+                mergedMap.set(up, Object.assign({}, mergedMap.get(up) || {}, overrides[k]));
+            });
+            v1188PartsCache = Array.from(mergedMap.values());
+            return v1188PartsCache;
+        })();
+
+        return v1188PartsLoadPromise;
+    };
+
+    // Check live stock across Van Stock (T01-T08) and Warehouse snapshot
+    function getPartStockStatus1188_(partNo) {
+        const code = String(partNo || '').trim().toUpperCase();
+        const vanHits = [];
+        try {
+            const vans = JSON.parse(localStorage.getItem('hoshizaki_van_stock_v1') || '[]');
+            vans.forEach(item => {
+                if (String(item.partNo || '').trim().toUpperCase() === code && Number(item.qty || 0) > 0) {
+                    vanHits.push({ van: item.vanId || item.tech || 'Van Stock', qty: Number(item.qty || 0) });
+                }
+            });
+        } catch (e) {}
+
+        let whQty = null;
+        try {
+            const snap = window.HZK_LIVE_STOCK_SNAPSHOT || JSON.parse(localStorage.getItem('hzk_live_stock_snapshot_cache') || 'null');
+            if (snap && snap.stockMap && snap.stockMap[code] != null) {
+                const entry = snap.stockMap[code];
+                whQty = typeof entry === 'object' ? Number(entry.qty || entry.available || 0) : Number(entry || 0);
+            }
+        } catch (e) {}
+
+        return { vanHits, whQty };
+    }
+
+    // Find matching Drive PDFs for a model or part
+    function findDrivePdfsForModels1188_(models) {
+        const list = Array.isArray(models) ? models : (models ? [models] : []);
+        if (!list.length) return [];
+        let pdfIndex = [];
+        try {
+            pdfIndex = JSON.parse(localStorage.getItem('hoshizaki_drive_pdf_index_v1') || '[]');
+        } catch (e) {}
+        if (!Array.isArray(pdfIndex) || !pdfIndex.length) return [];
+
+        const prefixes = list.map(m => String(m).toUpperCase().split('-').slice(0, 2).join('-')).filter(Boolean);
+        return pdfIndex.filter(doc => {
+            const name = String(doc.name || doc.title || '').toUpperCase();
+            return prefixes.some(px => px.length >= 3 && name.includes(px));
+        }).slice(0, 5);
+    }
+
+    // ========================================================================
+    // SMART SPARE PARTS 360° CROSS-REFERENCE, MODEL-FIRST VIEW & PHOTO HUB
+    // ========================================================================
+    window.openSmartSpareParts360Modal = async function(initialQuery, initialMode) {
+        let modal = document.getElementById('smartSpareParts360Modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'smartSpareParts360Modal';
+            modal.className = 'hidden fixed inset-0 bg-slate-950/85 backdrop-blur-xs z-[122] flex items-center justify-center p-2 sm:p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[94vh] flex flex-col overflow-hidden border border-sky-300">
+                    <div class="bg-gradient-to-r from-[#002B49] via-[#004675] to-[#0082C8] text-white px-4 py-3 flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="bg-emerald-400 text-[#002B49] text-[10px] font-black px-2 py-0.5 rounded-full">v1188 • 9,425+ PARTS</span>
+                                <h3 class="font-extrabold text-sm sm:text-base">ศูนย์ค้นหาอะไหล่ 360° • พาสเก่า/ใหม่ • พาสทดแทน • แมทข้ามรุ่น & คลังภาพ</h3>
+                            </div>
+                            <p class="text-[11px] text-sky-100 mt-0.5">Field Technician Model-First View & Admin 360° Cross-Reference + Live Photo Capture & Drive PDF Linker</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('smartSpareParts360Modal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white rounded-lg w-8 h-8 font-black text-lg flex items-center justify-center">&times;</button>
+                    </div>
+
+                    <div class="bg-sky-50 border-b border-sky-200 p-3 space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex flex-wrap gap-1.5 text-xs">
+                                <button type="button" id="sp360Mode_OMNI" onclick="switchSp360SearchMode('OMNI')" class="px-3 py-1.5 rounded-lg font-extrabold bg-[#002B49] text-white">
+                                    <i class="fa-solid fa-magnifying-glass mr-1"></i> ค้นหาทุกมิติ (Admin 360°: รหัสเก่า/ใหม่/ชื่อ/รุ่น)
+                                </button>
+                                <button type="button" id="sp360Mode_MODEL" onclick="switchSp360SearchMode('MODEL')" class="px-3 py-1.5 rounded-lg font-bold bg-white text-slate-800 border border-slate-300">
+                                    <i class="fa-solid fa-screwdriver-wrench text-[#00A3E0] mr-1"></i> โหมดช่างหน้างาน (ดูอะไหล่เฉพาะรุ่นเครื่อง)
+                                </button>
+                                <button type="button" id="sp360Mode_ADD" onclick="switchSp360SearchMode('ADD')" class="px-3 py-1.5 rounded-lg font-bold bg-white text-slate-800 border border-slate-300">
+                                    <i class="fa-solid fa-plus-circle text-emerald-600 mr-1"></i> เพิ่ม/แก้ไขพาสทดแทน & นำเข้า Excel
+                                </button>
+                            </div>
+                            <div id="sp360StatsBadge" class="text-[11px] font-bold text-[#002B49] bg-white border border-sky-200 px-2.5 py-1 rounded-lg">
+                                กำลังโหลดฐานข้อมูล 9,425+ รายการ...
+                            </div>
+                        </div>
+
+                        <div id="sp360SearchBarWrap" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
+                            <div class="sm:col-span-8 relative">
+                                <input type="text" id="sp360SearchInput" oninput="runSp360Search()" placeholder="พิมพ์รหัสพาส (เช่น P03755-02, 458774-01, 4A3978-01), ชื่ออะไหล่ (Valve, Motor, Board) หรือรุ่นเครื่อง (IM-130NE, KM-515MAH-E, HRW-77)..." class="w-full border-2 border-[#00A3E0] rounded-xl pl-3.5 pr-9 py-2 text-xs sm:text-sm font-bold bg-white focus:outline-none">
+                                <button type="button" onclick="document.getElementById('sp360SearchInput').value=''; runSp360Search();" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 font-bold">&times;</button>
+                            </div>
+                            <select id="sp360FilterSelect" onchange="runSp360Search()" class="sm:col-span-4 border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold bg-white text-slate-800">
+                                <option value="ALL">แสดงทั้งหมด (9,425+ รายการ)</option>
+                                <option value="HAS_MODELS">เฉพาะรายการที่แมทรุ่นเครื่องแล้ว (2,441+ รายการ)</option>
+                                <option value="CROSS_REF">เฉพาะรายการที่มีพาสเก่า / พาสทดแทน</option>
+                                <option value="MULTI_MODEL">เฉพาะพาสที่ใช้ข้ามหลายรุ่น (Cross-Model)</option>
+                                <option value="HAS_PHOTO">เฉพาะรายการที่มีรูปภาพประกอบแล้ว</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="sp360Body" class="p-3 sm:p-4 overflow-y-auto flex-1 text-xs space-y-3 bg-slate-50"></div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        modal.classList.remove('hidden');
+        const allParts = await window.loadV1188MasterPartsCatalog();
+        const badge = document.getElementById('sp360StatsBadge');
+        if (badge) {
+            badge.textContent = `ฐานข้อมูลพร้อมใช้: ${allParts.length.toLocaleString()} รายการ`;
+        }
+
+        const currentJobModel = document.getElementById('machineModel')?.value?.trim() || '';
+        const q = (initialQuery !== undefined) ? initialQuery : (initialMode === 'MODEL' ? currentJobModel : '');
+        const inp = document.getElementById('sp360SearchInput');
+        if (inp) inp.value = q;
+
+        window.switchSp360SearchMode(initialMode || 'OMNI');
+    };
+
+    window.switchSp360SearchMode = function(mode) {
+        ['OMNI', 'MODEL', 'ADD'].forEach(m => {
+            const btn = document.getElementById('sp360Mode_' + m);
+            if (btn) {
+                btn.className = (m === mode)
+                    ? 'px-3 py-1.5 rounded-lg font-extrabold bg-[#002B49] text-white shadow-xs'
+                    : 'px-3 py-1.5 rounded-lg font-bold bg-white hover:bg-slate-50 text-slate-800 border border-slate-300';
+            }
+        });
+        const searchBar = document.getElementById('sp360SearchBarWrap');
+        if (searchBar) searchBar.classList.toggle('hidden', mode === 'ADD');
+
+        if (mode === 'ADD') {
+            renderSp360AddOrImportForm_();
+            return;
+        }
+        if (mode === 'MODEL') {
+            const inp = document.getElementById('sp360SearchInput');
+            const curModel = document.getElementById('machineModel')?.value?.trim() || '';
+            if (inp && !inp.value.trim() && curModel) {
+                inp.value = curModel;
+            }
+            const sel = document.getElementById('sp360FilterSelect');
+            if (sel && sel.value === 'ALL') sel.value = 'HAS_MODELS';
+        }
+        window.runSp360Search();
+    };
+
+    window.runSp360Search = async function() {
+        const body = document.getElementById('sp360Body');
+        if (!body) return;
+        const allParts = await window.loadV1188MasterPartsCatalog();
+        const rawQ = (document.getElementById('sp360SearchInput')?.value || '').trim().toUpperCase();
+        const filterType = document.getElementById('sp360FilterSelect')?.value || 'ALL';
+        const photosMap = getCustomPartPhotos_();
+        const notesMap = getCustomPartNotes_();
+
+        let filtered = allParts.filter(p => {
+            const pNo = String(p.partNo || '').toUpperCase();
+            const desc = String(p.desc || '').toUpperCase();
+            const models = Array.isArray(p.models) ? p.models : [];
+            const eqs = Array.isArray(p.eqPartNos) ? p.eqPartNos : [];
+            const subs = Array.isArray(p.subPartNos) ? p.subPartNos : [];
+            const hasPhoto = Boolean(p.photoUrl || photosMap[pNo]);
+
+            if (filterType === 'HAS_MODELS' && models.length === 0) return false;
+            if (filterType === 'CROSS_REF' && eqs.length === 0 && subs.length === 0) return false;
+            if (filterType === 'MULTI_MODEL' && models.length < 2) return false;
+            if (filterType === 'HAS_PHOTO' && !hasPhoto) return false;
+
+            if (!rawQ) return true;
+            if (pNo.includes(rawQ) || desc.includes(rawQ)) return true;
+            if (eqs.some(x => String(x).toUpperCase().includes(rawQ))) return true;
+            if (subs.some(x => String(x).toUpperCase().includes(rawQ))) return true;
+            if (models.some(m => String(m).toUpperCase().includes(rawQ))) return true;
+            return false;
+        });
+
+        // Rank exact Part No. / Equivalent No. matches to the very top
+        if (rawQ) {
+            filtered.sort((a, b) => {
+                const aExact = (a.partNo === rawQ || (a.eqPartNos || []).includes(rawQ)) ? 0 : 1;
+                const bExact = (b.partNo === rawQ || (b.eqPartNos || []).includes(rawQ)) ? 0 : 1;
+                if (aExact !== bExact) return aExact - bExact;
+                return (b.models?.length || 0) - (a.models?.length || 0);
+            });
+        }
+
+        const totalMatched = filtered.length;
+        const shown = filtered.slice(0, 45);
+
+        if (shown.length === 0) {
+            body.innerHTML = `
+                <div class="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center space-y-2">
+                    <div class="text-slate-500 font-bold text-sm">ไม่พบรายการอะไหล่ที่ตรงกับ "${esc1188_(rawQ)}"</div>
+                    <div class="text-[11px] text-slate-400">ลองค้นหาด้วยคำสั้นลง เช่น "VALVE", "MOTOR", "BOARD", "DRIER" หรือกดเพิ่มรายการใหม่ได้ทันที</div>
+                    <button type="button" onclick="switchSp360SearchMode('ADD')" class="bg-[#002B49] text-white font-bold px-4 py-2 rounded-xl mt-2">+ เพิ่มรหัสพาสนี้เข้าฐานข้อมูล</button>
+                </div>
+            `;
+            return;
+        }
+
+        body.innerHTML = `
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600 px-1">
+                <span>พบข้อมูลที่ตรงกันทั้งหมด <b class="text-[#002B49] text-xs">${totalMatched.toLocaleString()}</b> รายการ ${totalMatched > 45 ? '(แสดง 45 รายการแรกที่ตรงที่สุด — พิมพ์รหัสหรือรุ่นให้เจาะจงขึ้นเพื่อกรอง)' : ''}</span>
+                <span class="text-emerald-700 font-bold"><i class="fa-solid fa-camera mr-1"></i>ช่างและแอดมินสามารถกดถ่ายรูป/อัปโหลดภาพอะไหล่เพื่อบันทึกเข้าคลังกลางได้ทันที</span>
+            </div>
+            <div class="space-y-3">
+                ${shown.map(p => {
+                    const pNo = String(p.partNo || '');
+                    const photoSrc = photosMap[pNo] || p.photoUrl || '';
+                    const techTip = notesMap[pNo] || p.notes || '';
+                    const models = Array.isArray(p.models) ? p.models : [];
+                    const eqs = Array.isArray(p.eqPartNos) ? p.eqPartNos : [];
+                    const subs = Array.isArray(p.subPartNos) ? p.subPartNos : [];
+                    const stock = getPartStockStatus1188_(pNo);
+                    const relatedPdfs = findDrivePdfsForModels1188_(models);
+
+                    let compatBadge = '';
+                    if (models.length === 1) {
+                        compatBadge = `<span class="bg-purple-100 text-purple-900 border border-purple-300 px-2 py-0.5 rounded-full font-extrabold text-[10px]">ใช้เฉพาะรุ่นนี้รุ่นเดียว (${esc1188_(models[0])})</span>`;
+                    } else if (models.length > 1) {
+                        compatBadge = `<span class="bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold text-[10px]">ใช้ร่วมกันได้ ${models.length} โมเดล (Cross-Model)</span>`;
+                    } else {
+                        compatBadge = `<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold text-[10px]">ยังไม่ได้ผูกโมเดล (กด + ผูกโมเดลได้)</span>`;
+                    }
+
+                    return `
+                    <div class="bg-white border-2 border-slate-200 hover:border-[#00A3E0] rounded-2xl p-3.5 shadow-xs transition">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <!-- Photo Thumbnail / Capture Box -->
+                            <div class="w-full sm:w-28 flex-shrink-0 flex flex-col items-center justify-center bg-slate-100 border border-slate-200 rounded-xl p-2 text-center">
+                                ${photoSrc
+                                    ? `<img src="${esc1188_(photoSrc)}" alt="${esc1188_(pNo)}" onclick="window.open('${esc1188_(photoSrc)}','_blank')" class="w-24 h-20 object-cover rounded-lg cursor-pointer border border-slate-300 mb-1.5">`
+                                    : `<div class="w-24 h-16 rounded-lg bg-slate-200/70 flex flex-col items-center justify-center text-slate-400 mb-1.5"><i class="fa-solid fa-image text-xl"></i><span class="text-[9px] mt-0.5">ยังไม่มีรูปพาส</span></div>`
+                                }
+                                <label class="cursor-pointer w-full bg-[#002B49] hover:bg-sky-900 text-white text-[10px] font-bold py-1 px-2 rounded-lg block">
+                                    <i class="fa-solid fa-camera mr-1"></i>${photoSrc ? 'เปลี่ยนรูป' : '+ ถ่าย/เพิ่มรูป'}
+                                    <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleV1188PartPhotoUpload('${esc1188_(pNo)}', this)">
+                                </label>
+                            </div>
+
+                            <!-- Details Column -->
+                            <div class="flex-1 space-y-2">
+                                <div class="flex flex-wrap items-start justify-between gap-2">
+                                    <div>
+                                        <div class="flex flex-wrap items-center gap-1.5">
+                                            <span class="bg-[#002B49] text-white font-mono font-black text-xs sm:text-sm px-2.5 py-0.5 rounded-lg">${esc1188_(pNo)}</span>
+                                            ${compatBadge}
+                                            ${p.category ? `<span class="bg-sky-100 text-sky-900 text-[10px] font-bold px-2 py-0.5 rounded-full">${esc1188_(p.category)}</span>` : ''}
+                                        </div>
+                                        <div class="font-extrabold text-slate-900 text-xs sm:text-sm mt-1">${esc1188_(p.desc)}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        ${Number(p.price || 0) > 0
+                                            ? `<div class="text-sm font-black text-emerald-700">${Number(p.price).toLocaleString()} <span class="text-[10px] font-normal text-slate-500">THB (ราคาตั้ง)</span></div>`
+                                            : `<div class="text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">รออัปเดตราคาตั้ง</div>`
+                                        }
+                                        ${Number(p.dealerPrice || 0) > 0 ? `<div class="text-[10px] text-slate-500">ราคาดีลเลอร์อ้างอิง: ${Number(p.dealerPrice).toLocaleString()} THB</div>` : ''}
+                                    </div>
+                                </div>
+
+                                <!-- Old / Equivalent / Substitute Part Numbers -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 rounded-xl p-2.5 border border-slate-200/80">
+                                    <div>
+                                        <div class="text-[10px] font-extrabold text-slate-500 uppercase">รหัสพาสเก่า / รหัสโรงงานที่ใช้ร่วมกัน (Old / Equivalent):</div>
+                                        <div class="flex flex-wrap gap-1 mt-1">
+                                            ${eqs.length
+                                                ? eqs.map(eq => `<span class="bg-amber-100 text-amber-950 border border-amber-300 font-mono font-bold px-2 py-0.5 rounded text-[10.5px]">${esc1188_(eq)}</span>`).join('')
+                                                : '<span class="text-slate-400 text-[10.5px]">- ไม่มีรหัสเก่าแยก (ใช้รหัสหลักนี้โดยตรง) -</span>'
+                                            }
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-extrabold text-slate-500 uppercase">พาสทดแทน / ใช้แทนกันได้ (Substitute Parts):</div>
+                                        <div class="flex flex-wrap gap-1 mt-1">
+                                            ${subs.length
+                                                ? subs.map(sb => `<button type="button" onclick="document.getElementById('sp360SearchInput').value='${esc1188_(sb)}'; runSp360Search();" class="bg-sky-100 hover:bg-sky-200 text-sky-950 border border-sky-300 font-mono font-bold px-2 py-0.5 rounded text-[10.5px]"><i class="fa-solid fa-arrows-rotate mr-1"></i>${esc1188_(sb)}</button>`).join('')
+                                                : '<span class="text-slate-400 text-[10.5px]">- ยังไม่ระบุพาสทดแทน -</span>'
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Compatible Models Badges -->
+                                <div>
+                                    <div class="text-[10px] font-extrabold text-slate-500 uppercase mb-1">รุ่นเครื่อง (Models) ที่ใช้พาสเบอร์นี้ได้:</div>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${models.length
+                                            ? models.map(m => `<button type="button" onclick="document.getElementById('sp360SearchInput').value='${esc1188_(m)}'; runSp360Search();" class="bg-slate-800 hover:bg-[#00A3E0] text-white font-mono font-bold px-2 py-0.5 rounded text-[10.5px] transition">${esc1188_(m)}</button>`).join('')
+                                            : '<span class="text-[10.5px] text-slate-400">สามารถค้นหาหรือกดปุ่ม "+ ผูกโมเดล / โน้ตช่าง" เพื่อเพิ่มรุ่นเครื่องที่ใช้พาสนี้</span>'
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Stock Status & Field Tech Tips -->
+                                <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-100">
+                                    <div class="flex flex-wrap items-center gap-1.5 text-[10.5px]">
+                                        ${stock.vanHits.length
+                                            ? stock.vanHits.map(v => `<span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-truck-pickup mr-1"></i>${esc1188_(v.van)}: มี ${v.qty} ชิ้น</span>`).join('')
+                                            : '<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full"><i class="fa-solid fa-truck-pickup mr-1"></i>รถช่าง: 0 ชิ้น</span>'
+                                        }
+                                        ${stock.whQty !== null
+                                            ? `<span class="${stock.whQty > 0 ? 'bg-sky-100 text-sky-900' : 'bg-rose-100 text-rose-800'} font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-warehouse mr-1"></i>คลังหลัก HHE: ${stock.whQty} ชิ้น</span>`
+                                            : ''
+                                        }
+                                        ${techTip ? `<span class="bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-lg font-semibold"><i class="fa-solid fa-circle-info text-amber-600 mr-1"></i>${esc1188_(techTip)}</span>` : ''}
+                                    </div>
+
+                                    <div class="flex flex-wrap items-center gap-1.5">
+                                        ${relatedPdfs.length ? `<button type="button" onclick="openDrivePdfFromPart1188_('${esc1188_(models[0] || '')}')" class="bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-300 font-bold px-2.5 py-1 rounded-lg text-[10.5px]"><i class="fa-solid fa-file-pdf mr-1"></i>PDF คู่มือ/Parts List (${relatedPdfs.length})</button>` : ''}
+                                        <button type="button" onclick="promptEditPartCrossRef1188_('${esc1188_(pNo)}')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-2.5 py-1 rounded-lg text-[10.5px]">
+                                            <i class="fa-solid fa-pen-to-square mr-1"></i>ผูกโมเดล / พาสทดแทน / โน้ต
+                                        </button>
+                                        ${photoSrc ? `<button type="button" onclick="sharePartPhotoAndInfo1188_('${esc1188_(pNo)}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg text-[10.5px]"><i class="fa-solid fa-share-nodes mr-1"></i>ส่งรูปให้ลูกค้า</button>` : ''}
+                                        <button type="button" onclick="addSp360PartToCurrentJob('${esc1188_(pNo)}')" class="bg-[#00A3E0] hover:bg-sky-600 text-white font-extrabold px-3 py-1 rounded-lg text-[10.5px] shadow-xs">
+                                            + ดึงลงใบงานซ่อม
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    };
+
+    window.addSp360PartToCurrentJob = async function(partNo) {
+        const allParts = await window.loadV1188MasterPartsCatalog();
+        const found = allParts.find(x => String(x.partNo).toUpperCase() === String(partNo).toUpperCase());
+        if (!found) return;
+        if (typeof window.addPartsRow === 'function') {
+            window.addPartsRow({
+                partNo: found.partNo,
+                desc: found.desc,
+                qty: 1,
+                price: Number(found.price || 0)
+            });
+        }
+        document.getElementById('smartSpareParts360Modal')?.classList.add('hidden');
+        if (typeof showToast === 'function') {
+            showToast(`✅ เพิ่มอะไหล่ ${found.partNo} (${found.desc}) ลงตารางอะไหล่เรียบร้อย`);
+        }
+    };
+
+    window.handleV1188PartPhotoUpload = function(partNo, inputEl) {
+        const file = inputEl?.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            // Compress image cleanly via canvas so localStorage & Google Drive sync stays lightweight
+            const img = new Image();
+            img.onload = function() {
+                const maxW = 640;
+                const scale = Math.min(1, maxW / img.width);
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(img.width * scale);
+                canvas.height = Math.round(img.height * scale);
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.78);
+
+                const pMap = getCustomPartPhotos_();
+                pMap[partNo.toUpperCase()] = dataUrl;
+                saveCustomPartPhotos_(pMap);
+
+                // Sync to Google Apps Script (Drive PART_PHOTO folder + MultiModel_Parts_Master) if connected
+                const gasUrl = localStorage.getItem('hoshizaki_gas_webapp_url') || localStorage.getItem('hoshizaki_gas_url_v1') || '';
+                if (gasUrl) {
+                    fetch(gasUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            actionType: 'UPLOAD_V1188_PART_PHOTO_AND_META',
+                            partNo: partNo,
+                            photoBase64: dataUrl
+                        })
+                    }).catch(() => {});
+                }
+
+                window.runSp360Search();
+                if (typeof showToast === 'function') {
+                    showToast(`📸 บันทึกรูปภาพอะไหล่ ${partNo} เข้าคลังเรียบร้อยแล้ว`);
+                }
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.promptEditPartCrossRef1188_ = async function(partNo) {
+        const allParts = await window.loadV1188MasterPartsCatalog();
+        const item = allParts.find(x => String(x.partNo).toUpperCase() === String(partNo).toUpperCase()) || { partNo, models: [], eqPartNos: [], subPartNos: [], notes: '' };
+        const notesMap = getCustomPartNotes_();
+
+        const newModelsStr = prompt(`ระบุรุ่นเครื่อง (Models) ที่ใช้พาส ${partNo} ได้ (คั่นด้วยลูกน้ำ , ):`, (item.models || []).join(', '));
+        if (newModelsStr === null) return;
+        const newEqStr = prompt(`ระบุรหัสพาสเก่า / รหัสโรงงานที่ใช้ร่วมกัน (Old / Equivalent Part No.):`, (item.eqPartNos || []).join(', '));
+        if (newEqStr === null) return;
+        const newSubStr = prompt(`ระบุรหัสพาสทดแทน (Substitute Part No.):`, (item.subPartNos || []).join(', '));
+        if (newSubStr === null) return;
+        const newNote = prompt(`บันทึกข้อควรระวัง / โน้ตจากช่างหน้างานสำหรับพาส ${partNo}:`, notesMap[partNo.toUpperCase()] || item.notes || '');
+        if (newNote === null) return;
+
+        const overrides = getCustomPartOverrides_();
+        const updatedRec = Object.assign({}, item, {
+            partNo: partNo.toUpperCase(),
+            models: newModelsStr.split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            eqPartNos: newEqStr.split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            subPartNos: newSubStr.split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            notes: newNote.trim()
+        });
+        overrides[partNo.toUpperCase()] = updatedRec;
+        saveCustomPartOverrides_(overrides);
+
+        notesMap[partNo.toUpperCase()] = newNote.trim();
+        saveCustomPartNotes_(notesMap);
+
+        v1188PartsCache = null;
+        await window.loadV1188MasterPartsCatalog();
+        window.runSp360Search();
+        if (typeof showToast === 'function') showToast(`✅ อัปเดตข้อมูลแมทโมเดลและพาสทดแทนของ ${partNo} เรียบร้อย`);
+    };
+
+    window.sharePartPhotoAndInfo1188_ = async function(partNo) {
+        const allParts = await window.loadV1188MasterPartsCatalog();
+        const item = allParts.find(x => String(x.partNo).toUpperCase() === String(partNo).toUpperCase());
+        const msg = `อะไหล่ HOSHIZAKI\n• รหัสพาส: ${partNo}\n• รายการ: ${item?.desc || '-'}\n• รุ่นที่รองรับ: ${(item?.models || []).join(', ') || 'ตามสเปกเครื่อง'}\n${Number(item?.price || 0) > 0 ? '• ราคาตั้ง: ' + Number(item.price).toLocaleString() + ' บาท (ไม่รวม VAT)' : ''}`;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(msg).catch(() => {});
+        }
+        if (typeof showToast === 'function') {
+            showToast(`📋 คัดลอกรายละเอียดพาส ${partNo} พร้อมส่งให้ลูกค้าแล้ว (คลิกขวาคัดลอกรูปภาพจากหน้าจอได้เลย)`);
+        }
+    };
+
+    window.openDrivePdfFromPart1188_ = function(modelHint) {
+        document.getElementById('smartSpareParts360Modal')?.classList.add('hidden');
+        if (typeof window.openDriveManualSearchModal === 'function') {
+            window.openDriveManualSearchModal(modelHint);
+        } else {
+            const driveInp = document.getElementById('driveDocSearchInput');
+            if (driveInp) {
+                driveInp.value = modelHint;
+                driveInp.focus();
+            }
+        }
+    };
+
+    function renderSp360AddOrImportForm_() {
+        const body = document.getElementById('sp360Body');
+        if (!body) return;
+        body.innerHTML = `
+            <div class="bg-white border border-sky-200 rounded-2xl p-4 space-y-3">
+                <div class="font-extrabold text-[#002B49] text-sm"><i class="fa-solid fa-plus-circle text-emerald-600 mr-1.5"></i>เพิ่มรายการอะไหล่ใหม่ / ผูกพาสทดแทนเข้าฐานข้อมูลกลาง (9,425+ รายการ)</div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <input type="text" id="newSpPartNo" placeholder="รหัสพาสปัจจุบัน (Part No.) *" class="border rounded-xl px-3 py-2 font-mono font-bold">
+                    <input type="text" id="newSpDesc" placeholder="ชื่ออะไหล่ (TH / EN) *" class="sm:col-span-2 border rounded-xl px-3 py-2 font-bold">
+                    <input type="text" id="newSpModels" placeholder="รุ่นเครื่องที่ใช้ได้ (คั่นด้วย , เช่น IM-130NE, IM-220AA)" class="border rounded-xl px-3 py-2">
+                    <input type="text" id="newSpEq" placeholder="รหัสพาสเก่า / รหัสโรงงาน (คั่นด้วย , )" class="border rounded-xl px-3 py-2 font-mono">
+                    <input type="text" id="newSpSub" placeholder="รหัสพาสทดแทน (Substitute Part No.)" class="border rounded-xl px-3 py-2 font-mono">
+                    <input type="number" id="newSpPrice" placeholder="ราคาตั้ง (THB)" class="border rounded-xl px-3 py-2">
+                    <input type="text" id="newSpNote" placeholder="ข้อควรระวัง / โน้ตช่างหน้างาน" class="sm:col-span-2 border rounded-xl px-3 py-2">
+                </div>
+                <button type="button" onclick="saveNewSp360ManualEntry_()" class="bg-[#002B49] hover:bg-sky-900 text-white font-extrabold px-4 py-2 rounded-xl shadow-xs">
+                    <i class="fa-solid fa-floppy-disk mr-1"></i> บันทึกเข้าฐานข้อมูลอะไหล่ 360°
+                </button>
+            </div>
+        `;
+    }
+
+    window.saveNewSp360ManualEntry_ = async function() {
+        const pNo = document.getElementById('newSpPartNo')?.value.trim().toUpperCase();
+        const desc = document.getElementById('newSpDesc')?.value.trim();
+        if (!pNo || !desc) { alert('กรุณากรอกรหัสพาส (Part No.) และชื่ออะไหล่'); return; }
+        const overrides = getCustomPartOverrides_();
+        overrides[pNo] = {
+            partNo: pNo,
+            desc: desc,
+            price: Number(document.getElementById('newSpPrice')?.value || 0),
+            models: (document.getElementById('newSpModels')?.value || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            eqPartNos: (document.getElementById('newSpEq')?.value || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            subPartNos: (document.getElementById('newSpSub')?.value || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+            notes: (document.getElementById('newSpNote')?.value || '').trim()
+        };
+        saveCustomPartOverrides_(overrides);
+        v1188PartsCache = null;
+        await window.loadV1188MasterPartsCatalog();
+        window.switchSp360SearchMode('OMNI');
+        document.getElementById('sp360SearchInput').value = pNo;
+        window.runSp360Search();
+        if (typeof showToast === 'function') showToast(`✅ เพิ่มรหัสพาส ${pNo} เข้าฐานข้อมูลเรียบร้อย`);
+    };
+
+    // ========================================================================
+    // SERVICE CONTROL TOWER MODAL (1-CLICK SERVICE DEPARTMENT COMMAND CENTER)
+    // ========================================================================
+    window.openServiceControlTowerV1188Modal = function() {
+        let modal = document.getElementById('serviceControlTowerV1188Modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'serviceControlTowerV1188Modal';
+            modal.className = 'hidden fixed inset-0 bg-slate-950/85 backdrop-blur-xs z-[121] flex items-center justify-center p-2 sm:p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-sky-300">
+                    <div class="bg-gradient-to-r from-[#002B49] via-sky-900 to-slate-900 text-white px-4 py-3 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-extrabold text-sm sm:text-base flex items-center gap-2">
+                                <i class="fa-solid fa-tower-broadcast text-emerald-400"></i>
+                                <span>HOSHIZAKI Service Control Tower (v1188 — คุมงานบริการ 100%)</span>
+                            </h3>
+                            <p class="text-[11px] text-sky-200">ศูนย์รวมคิวงานช่าง • สต็อกรถช่าง T01–T08 • รอบ PM 30 วัน • ตรวจความครบถ้วนก่อนปิดงาน & ค้นหาอะไหล่ 360°</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('serviceControlTowerV1188Modal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white rounded-lg w-8 h-8 font-black text-lg">&times;</button>
+                    </div>
+                    <div id="serviceControlTowerBody" class="p-4 overflow-y-auto flex-1 text-xs space-y-4 bg-slate-50"></div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        let jobs = [];
+        try { jobs = JSON.parse(localStorage.getItem('hoshizaki_service_history_v1') || '[]'); } catch (e) {}
+        let vans = [];
+        try { vans = JSON.parse(localStorage.getItem('hoshizaki_van_stock_v1') || '[]'); } catch (e) {}
+
+        const openJobs = jobs.filter(j => !/COMPLETE|DONE|ปิดงาน/i.test(String(j.jobStatus || j.status || '')));
+        const waitPartsJobs = openJobs.filter(j => /PART|รออะไหล่|HOLD/i.test(String(j.jobStatus || j.status || '')));
+        const lowVanItems = vans.filter(v => Number(v.qty || 0) <= 1);
+
+        const body = document.getElementById('serviceControlTowerBody');
+        body.innerHTML = `
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="bg-white border-l-4 border-[#002B49] rounded-xl p-3 shadow-xs">
+                    <div class="text-[11px] text-slate-500 font-bold">ใบงานบริการเปิดอยู่ (Active Jobs)</div>
+                    <div class="text-2xl font-black text-[#002B49] mt-0.5">${openJobs.length} <span class="text-xs font-normal">งาน</span></div>
+                </div>
+                <div class="bg-white border-l-4 border-amber-500 rounded-xl p-3 shadow-xs">
+                    <div class="text-[11px] text-slate-500 font-bold">งานรออะไหล่ / GIT ETA</div>
+                    <div class="text-2xl font-black text-amber-600 mt-0.5">${waitPartsJobs.length} <span class="text-xs font-normal">งาน</span></div>
+                </div>
+                <div class="bg-white border-l-4 border-rose-500 rounded-xl p-3 shadow-xs">
+                    <div class="text-[11px] text-slate-500 font-bold">อะไหล่รถช่าง T01–T08 ใกล้หมด</div>
+                    <div class="text-2xl font-black text-rose-600 mt-0.5">${lowVanItems.length} <span class="text-xs font-normal">รายการ</span></div>
+                </div>
+                <div class="bg-white border-l-4 border-emerald-500 rounded-xl p-3 shadow-xs">
+                    <div class="text-[11px] text-slate-500 font-bold">ฐานข้อมูลอะไหล่ 360° พร้อมใช้</div>
+                    <div class="text-2xl font-black text-emerald-700 mt-0.5">9,425 <span class="text-xs font-normal">รายการ</span></div>
+                </div>
+            </div>
+
+            <!-- Quick 1-Tap Field & Admin Launchers -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <button type="button" onclick="document.getElementById('serviceControlTowerV1188Modal').classList.add('hidden'); openSmartSpareParts360Modal('', 'OMNI');" class="bg-gradient-to-r from-[#002B49] to-[#0082C8] text-white rounded-xl p-3.5 text-left shadow-xs hover:opacity-95 transition">
+                    <div class="font-extrabold text-sm flex items-center justify-between">
+                        <span><i class="fa-solid fa-gears text-amber-300 mr-1.5"></i>ค้นหาอะไหล่ 360° & รูปภาพ</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="text-[11px] text-sky-100 mt-1">พาสเก่า/ใหม่ • พาสทดแทน • เช็กโมเดลใช้ร่วมกัน • ถ่ายรูปพาส</div>
+                </button>
+                <button type="button" onclick="document.getElementById('serviceControlTowerV1188Modal').classList.add('hidden'); openSmartSpareParts360Modal(document.getElementById('machineModel')?.value || '', 'MODEL');" class="bg-white border-2 border-[#00A3E0] text-[#002B49] rounded-xl p-3.5 text-left shadow-xs hover:bg-sky-50 transition">
+                    <div class="font-extrabold text-sm flex items-center justify-between">
+                        <span><i class="fa-solid fa-screwdriver-wrench text-[#00A3E0] mr-1.5"></i>อะไหล่เฉพาะรุ่นเครื่องหน้างาน</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="text-[11px] text-slate-600 mt-1">ดึงรายการพาสตรงรุ่นเครื่องที่กำลังซ่อม + เช็กสต็อกรถช่าง</div>
+                </button>
+                <button type="button" onclick="document.getElementById('serviceControlTowerV1188Modal').classList.add('hidden'); if(typeof openServiceDispatchCalendarModal==='function') openServiceDispatchCalendarModal();" class="bg-white border-2 border-emerald-500 text-slate-900 rounded-xl p-3.5 text-left shadow-xs hover:bg-emerald-50 transition">
+                    <div class="font-extrabold text-sm flex items-center justify-between">
+                        <span><i class="fa-solid fa-calendar-check text-emerald-600 mr-1.5"></i>ตารางคิวช่าง & รอบ PM 30 วัน</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="text-[11px] text-slate-600 mt-1">จ่ายงานช่าง T01–T08, Outsource และนัดหมายลูกค้า</div>
+                </button>
+            </div>
+
+            <!-- Active Service Queue Table -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <div class="bg-[#002B49] text-white px-3 py-2 font-bold flex items-center justify-between">
+                    <span><i class="fa-solid fa-list-check text-[#00A3E0] mr-1.5"></i>รายการใบงานบริการที่กำลังดำเนินการ (Active Service Jobs)</span>
+                    <span class="text-[10px] text-sky-200">อัปเดตสดจากระบบ Service Report</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-100 text-[11px] text-slate-700">
+                            <tr><th class="p-2 border-b">Job No.</th><th class="p-2 border-b">ลูกค้า / สถานที่</th><th class="p-2 border-b">รุ่น / S/N</th><th class="p-2 border-b">ช่างผู้รับผิดชอบ</th><th class="p-2 border-b">สถานะ</th><th class="p-2 border-b text-right">เครื่องมือ</th></tr>
+                        </thead>
+                        <tbody>
+                            ${openJobs.length ? openJobs.slice(0, 15).map(j => `
+                                <tr class="border-b hover:bg-sky-50/50">
+                                    <td class="p-2 font-mono font-bold text-[#002B49]">${esc1188_(j.jobNo || '-')}</td>
+                                    <td class="p-2 font-semibold">${esc1188_(j.customerName || j.storeName || '-')}</td>
+                                    <td class="p-2 font-mono text-[11px]">${esc1188_(j.model || '-')} ${j.serialNo ? '(' + esc1188_(j.serialNo) + ')' : ''}</td>
+                                    <td class="p-2">${esc1188_(j.technicianName || j.responsibleTech || '-')}</td>
+                                    <td class="p-2"><span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full text-[10px] font-bold">${esc1188_(j.jobStatus || j.status || 'กำลังดำเนินการ')}</span></td>
+                                    <td class="p-2 text-right">
+                                        <button type="button" onclick="document.getElementById('serviceControlTowerV1188Modal').classList.add('hidden'); openSmartSpareParts360Modal('${esc1188_(j.model || '')}', 'MODEL');" class="bg-sky-100 hover:bg-sky-200 text-sky-900 font-bold px-2 py-1 rounded text-[10px]">เช็กพาสตรงรุ่น</button>
+                                    </td>
+                                </tr>
+                            `).join('') : '<tr><td colspan="6" class="p-4 text-center text-slate-500">ยังไม่มีใบงานค้างในระบบ (กดสร้างใบงานใหม่หรือดูประวัติงานซ่อมทั้งหมดได้ทันที)</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+        modal.classList.remove('hidden');
+    };
+
+    // Mount compact v1188 Service-First pills & Quick Parts 360 button on boot
+    function mountV1188ServiceFirstControls_() {
+        window.applyV1188ServiceFirstFocusMode();
+
+        // 1. Add compact Service Control Tower & Parts 360 buttons into top header status pill row
+        const pillRow = document.getElementById('topHeaderStatusPillsRow') || document.getElementById('topHeaderRightPillsWrap');
+        if (pillRow && !document.getElementById('btnV1188ServiceControlTower')) {
+            const btnTower = document.createElement('button');
+            btnTower.type = 'button';
+            btnTower.id = 'btnV1188ServiceControlTower';
+            btnTower.onclick = window.openServiceControlTowerV1188Modal;
+            btnTower.className = 'hzk-compact-pill text-[10px] px-2.5 py-0.5 rounded-full font-extrabold bg-emerald-500 hover:bg-emerald-400 text-[#002B49] shadow-xs flex items-center gap-1 transition';
+            btnTower.innerHTML = '<i class="fa-solid fa-tower-broadcast"></i><span>Service Control</span>';
+            pillRow.appendChild(btnTower);
+
+            const btnParts = document.createElement('button');
+            btnParts.type = 'button';
+            btnParts.id = 'btnV1188SmartParts360';
+            btnParts.onclick = function() { window.openSmartSpareParts360Modal('', 'OMNI'); };
+            btnParts.className = 'hzk-compact-pill text-[10px] px-2.5 py-0.5 rounded-full font-extrabold bg-amber-400 hover:bg-amber-300 text-[#002B49] shadow-xs flex items-center gap-1 transition';
+            btnParts.innerHTML = '<i class="fa-solid fa-gears"></i><span>ค้นหาพาส 360° (9,425)</span>';
+            pillRow.appendChild(btnParts);
+
+            const btnFocus = document.createElement('button');
+            btnFocus.type = 'button';
+            btnFocus.id = 'btnV1188ToggleFocusMode';
+            btnFocus.onclick = function() {
+                window.setV1188FocusMode(window.getV1188FocusMode() === 'SERVICE_ONLY' ? 'ALL_DEPTS' : 'SERVICE_ONLY');
+            };
+            btnFocus.className = 'hzk-compact-pill text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-white/15 hover:bg-white/25 text-white border border-white/30 flex items-center transition';
+            pillRow.appendChild(btnFocus);
+            window.applyV1188ServiceFirstFocusMode();
+        }
+
+        // 2. Also add "ค้นหาพาส 360° / ดูพาสตรงรุ่น" button next to Parts Table in the Service Form
+        const partsTable = document.getElementById('partsTableBody')?.closest('table') || document.getElementById('partsListContainer');
+        if (partsTable && !document.getElementById('btnInlineSp360Finder')) {
+            const bar = document.createElement('div');
+            bar.id = 'btnInlineSp360Finder';
+            bar.className = 'mb-2 p-2.5 rounded-xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200 flex flex-wrap items-center justify-between gap-2 text-xs';
+            bar.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-[#002B49] text-[#00A3E0] flex items-center justify-center font-bold"><i class="fa-solid fa-gears"></i></span>
+                    <div>
+                        <div class="font-extrabold text-[#002B49]">ระบบค้นหาอะไหล่ 360° (9,425+ รายการ) & คลังรูปภาพอะไหล่</div>
+                        <div class="text-[10.5px] text-slate-600">เช็กพาสเก่า ↔ พาสใหม่, พาสทดแทน, โมเดลที่ใช้ร่วมกัน และดู/ถ่ายรูปอะไหล่จริงหน้างาน</div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <button type="button" onclick="openSmartSpareParts360Modal(document.getElementById('machineModel')?.value || '', 'MODEL')" class="bg-[#00A3E0] hover:bg-sky-600 text-white font-bold px-3 py-1.5 rounded-lg shadow-xs">
+                        <i class="fa-solid fa-screwdriver-wrench mr-1"></i>ดูพาสเฉพาะรุ่นนี้
+                    </button>
+                    <button type="button" onclick="openSmartSpareParts360Modal('', 'OMNI')" class="bg-[#002B49] hover:bg-sky-900 text-white font-bold px-3 py-1.5 rounded-lg shadow-xs">
+                        <i class="fa-solid fa-magnifying-glass mr-1"></i>ค้นหาพาส / เทียบรุ่น 360°
+                    </button>
+                </div>
+            `;
+            partsTable.parentNode.insertBefore(bar, partsTable);
+        }
+
+        // Preload parts catalog silently in background for instant 0ms search
+        window.loadV1188MasterPartsCatalog();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountV1188ServiceFirstControls_);
+    } else {
+        mountV1188ServiceFirstControls_();
+    }
+})();
