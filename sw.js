@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hoshizaki-service-pwa-v1188-service-first-control';
+const CACHE_NAME = 'hoshizaki-service-pwa-v1189-stock-20261124';
 const CORE_ASSETS = [
   './',
   './index.html',

@@ -9764,7 +9764,7 @@ ${finalUrl}`;
         { assignmentId: 'EXEC-CAR-02', execName: 'Mr. Naoki Furujo (Japanese Corporate Manager)', vendorCompany: 'External Limousine & Leasing Co., Ltd.', vehiclePlate: 'Toyota Camry Hybrid (กท-8822)', driverName: 'คุณวิรัช (คนขับประจำ JPC Mgr)', driverPhone: '081-900-1102', monthlyRate: 42000, driverOt: 0, expiryDate: '2027-12-31', status: 'ACTIVE' }
       ],
       mileageClaims: [
-        { claimId: 'MIL2611-001', date: '2026-11-20', empName: 'นพรินทร์ หอมหวล (Noparin)', department: 'Service Unit', carPlate: 'รถส่วนตัวพนักงาน (กท-5412)', fixedAllow: 8500, route: 'กรุงเทพฯ ➔ นิคมฯ อมตะซิตี้ ชลบุรี (ไป-กลับ)', distanceKm: 164, mileageAmt: 738, tollParking: 170, totalPayout: 9408 }
+        { claimId: 'MIL2611-001', date: '2026-11-24', empName: 'นพรินทร์ หอมหวล (Noparin)', department: 'Service Unit', carPlate: 'รถส่วนตัวพนักงาน (กท-5412)', fixedAllow: 8500, route: 'กรุงเทพฯ ➔ นิคมฯ อมตะซิตี้ ชลบุรี (ไป-กลับ)', distanceKm: 164, mileageAmt: 738, tollParking: 170, totalPayout: 9408 }
       ],
       skillMatrix: [
         { tech: 'T01 (Bangkok North)', imKm: '✅ Certified', jweDishwasher: '✅ Certified', coldRoomHrHf: '✅ Certified', r290Hydrocarbon: '✅ Certified' },
