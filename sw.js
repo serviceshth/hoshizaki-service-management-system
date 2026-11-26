@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hoshizaki-service-pwa-v1193-omni-release-ready';
+const CACHE_NAME = 'hoshizaki-service-pwa-v1194-omni-release-ready';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -9,7 +9,8 @@ const CORE_ASSETS = [
   './live_stock_snapshot_y2026.json',
   './parts_catalog.json',
   './serial_db.json',
-  './quotation_archive.json'
+  './quotation_archive.json',
+  './penguin-tech-bg.png'
 ];
 
 self.addEventListener('install', (event) => {
