@@ -1,6 +1,6 @@
 {
-  "name": "HOSHIZAKI (THAILAND) — Enterprise 8-Dept Omni-Suite V.1194",
-  "short_name": "Hoshizaki V.1194",
+  "name": "HOSHIZAKI (THAILAND) — Enterprise Omni-Suite V.1197",
+  "short_name": "Hoshizaki V.1197",
   "description": "ระบบบริหารจัดการองค์กรครบวงจร 8 แผนก 3 ภาษา (TH/EN/JP): งานบริการ, คลังสินค้า IMS, คลังเช่า 3PL & ขนส่ง (Driver/Lalamove/Grab/LINE MAN + QR e-POD), สินค้าค้าง >6 เดือน & เกรด A/B/C/L, บัญชี NAV Audit-Ready, AI Social Ad Generator (TikTok/FB/YT), ดูดไฟล์ Excel จากอีเมล, Jobcan Workflow & HQ Bridge และนัดประชุม Teams ด้วยคำสั่งเสียง",
   "start_url": "./index.html",
   "scope": "./",
@@ -22,5 +22,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "v1194-OMNI-RELEASE-READY"
+  "version": "v1197-DEEP-SCAN-VERIFIED"
 }

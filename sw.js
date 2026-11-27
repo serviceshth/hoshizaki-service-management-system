@@ -1,10 +1,12 @@
-const CACHE_NAME = 'hoshizaki-service-pwa-v1194-omni-release-ready';
+const CACHE_NAME = 'hoshizaki-service-pwa-v1197-deep-scan-verified';
 const CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './hzk_enterprise_modules.js',
   './hzk_sales_crm_quotation_addon.js',
+  './hzk_v1195_sales_mkt_omni_suite.js',
+  './hzk_v1197_smart_bi_voice_studio.js',
   './sales_crm_master_db_y2026.json',
   './live_stock_snapshot_y2026.json',
   './parts_catalog.json',

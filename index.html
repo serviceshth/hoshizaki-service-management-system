@@ -691,8 +691,10 @@ transform: scale(0.96);
   }
 
   const SCRIPT_MAP = {
-    enterprise: './hzk_enterprise_modules.js?v=1194',
-    addon: './hzk_sales_crm_quotation_addon.js?v=1194'
+    enterprise: './hzk_enterprise_modules.js?v=1197',
+    addon: './hzk_sales_crm_quotation_addon.js?v=1197',
+    v1195: './hzk_v1195_sales_mkt_omni_suite.js?v=1197',
+    v1196: './hzk_v1196_smart_bi_voice_studio.js?v=1197'
   };
 
   const ENTERPRISE_FNS = ["HOSHIZAKI_QUOTATION_ARCHIVE", "HZK_CURRENT_LANG", "_activeOmniShareCtx", "_hzkWfhStream", "_uaiCurrentBadge", "_uaiCurrentBgHex", "_uaiCurrentPreviewImg", "add100SeatUserAccount", "addCustomV1040SampleRecord", "addExhibitionEventLead", "addExplodedPartToJobOrQt", "addFlexStudioBodyRow", "addFlexStudioButton", "addOrUpdateDealerChannelEntry", "addPickedPartToActiveJob", "addSalesCrmDeal", "addStandaloneQtLineItemFromInput", "addUnitLevelDealerOwnership", "addWaterQualityRecord", "adminBulkImportStaffSeats", "adminCreateNewStaffCredential", "adminGenerateTempPassword", "adminResetStaffPassword", "adminSuspendStaffAccount", "adminUnlockStaffAccount", "adminUpdateStaffRbacRole", "advanceB2b10StepCase", "advanceV1040PrApprovalStage", "analyzeSmartFuzzyQuery", "appendStandaloneQtRemarkPreset", "appendSystemAuditLog", "applyAiCreativePromptToFlexStudio", "applyCleanParentSubmenuArchitecture", "applyModelSpecToFlexStudio", "applyRbacRoleViewFiltering", "applySelectedQtCustodianOption", "applySmartBranchNumberToCurrentJob", "applySmartWhiteBgCutoutToStudioPhoto", "applySplitDepositToQuotation", "approveHrWorkflowItemNow", "autoFillQuotationFromSystemSn", "buildAndPreview3ModelCarousel", "buildThaiPromptPayEmvPayload", "calculateIceRoiPayback", "calculateProvincialTravelEstimate", "captureCurrentWorkInProgressSnapshot", "captureWfhSelfieAndStamp_", "checkAndTriggerAutoBirthdayGreeting", "checkPhotoComplianceGate", "checkoutOrReturnToolLoaner", "clearStandaloneQtCustomItems", "closeAiNextGenServiceHubModal", "closeAllImsFloatingMenus", "closeEnterpriseGovernanceEhsErpModal", "closeEnterpriseInventoryImsModal", "closeImsSubmenus", "closeIotTelemetryHubModal", "completeCrossDeptHandoffTask", "composeFlexStudioAdPosterDataUrl", "computeWeeklyExpensePayoutCycle", "confirmB2bPoAndSync", "confirmPromptPaySettledAndIssueETax", "confirmQrEpodDelivery", "convertCrmDealToQuotation", "convertFlexStudioCardToQuotation", "copyActiveJobSummaryAndOpenLineOa", "copyLastGeneratedTempPassword", "create3plCourierDispatch", "createAuto4HcHRenewalQuote", "createCrossDeptHandoffTask", "createDealerSubcontractJobAndQt", "createDefectivePartReturnTag", "createNewBlankFlexStudioTemplate", "createNewCustomKpiReport", "createPredictiveUpsellQuotation", "createRentalIaasContract", "currentOfferNo", "decideSpecialDiscountRequest", "deductImsStockFifo", "deduplicateHoshizakiDatabasesNow", "deleteHrSampleRecord", "deleteKpiReportById", "deleteSingleV1040SampleRecord", "detectQueryLanguageTrilingual", "downloadBirthdayCardAsImage", "downloadCurrentDocumentPdfV1079", "downloadFlexStudioPosterPng", "downloadUpdatedV1054TrilingualManualHtml", "evaluateTechSimulatorAnswer", "executeOmniCommand", "executeOmniShareAction", "exportAseanHqRegionalPackCsv", "exportDynamicsNavErpCsv", "exportImsFullWorkbookCsv", "exportJobcanHqJapanCsv", "exportOrShareDocumentAsImageV1079", "exportSecurityAuditCsv", "exportSingleKpiReportExcel", "filterFlexStudioSavedTemplates", "filterLineDirTableRows", "filterLoginStaffDirectoryList", "generateAiSocialAdPackNow", "generateFilter4HcRenewalQuote", "generateMonthlyRentalInvoice", "generateNextBranchJobNo", "generateNextBranchQuotationNo", "generatePromptPayAndETaxNow", "generatePromptPayQrAndInstantETax", "generateTeamsAndOutlookInvite", "generateUnifiedAiCardNow", "getActiveHoshizakiBranch", "getHzkModelSpecForCreativeStudio", "getSmartRoleFilteredAlerts", "handleCasePhotoUploadV1129", "handleFlexStudioImageUpload", "hzkEmitCrossModuleEvent", "importDailyStockExcelFileNow", "importIotMetricsIntoActiveJob", "incrementQuotationRevisionV1076", "ingestHoshizakiIotTelemetryPayload", "issueConsolidatedChainStatement", "launchB2bPartnerSelfServiceView", "launchHoshizakiLineOaChat", "loadAllV1040ExampleRecords", "loadDealerIntoEditForm", "loadEmployeeBdayFormById", "loadExistingQuotationForEdit", "loadFlexStudioTemplateById", "loadFlexStudioTemplateById_fromState", "maskSensitiveEmail", "maskSensitivePhone", "onSelectLineDirDropdownAccount", "onStandaloneQtCustomerTyping", "onStandaloneQtPartSelect", "open3plLogisticsAndAgingModal", "openAiChatbotOrchestratorModal", "openAiNextGenServiceHubModal", "openB2bQtRound2InMainForm", "openBatchMachineQrStickersWindow", "openChangeOwnPasswordBox", "openContextualHelpDrawer", "openCrossDeptHandoffHubModal", "openDeepB2bChainAndDealerPortalModal", "openDeepSystemAuditV1058Modal", "openEmployeeBirthdayProfileModal", "openEnterpriseGovernanceEhsErpModal", "openEnterpriseInventoryImsModal", "openEnterpriseLifecycleSuiteModal", "openEnterpriseUnifiedCommandHubV1129", "openGeoTravelCostEstimatorModal", "openHrWorkflowSuiteModal", "openHybridAccountingNavModal", "openIotTelemetryHubModal", "openKpiReportStudioModal", "openLineChatbotSimulatorModal", "openLineOaInquiryCrmModal", "openMarketingAndEmailSyncModal", "openMultiBranchSwitcherModal", "openNextGenAutonomousServiceModal", "openOmniCommandPaletteModal", "openOmniScaleEnterpriseV1057Modal", "openOnboardingCredentialSlipModal", "openPmLifecycleRenewalRadarModal", "openPredictiveHealthAndCopilotModal", "openPredictiveQuoteAutomatorModal", "openRevenueLeakageAuditModal", "openSaleMarketingGrowthModal", "openStaffOnboardingModalV1131", "openStorageColdArchiveModal", "openTechSkillAndOtModal", "openUnifiedAiContentAndCardStudio", "openUnifiedCloudSyncHubModal", "openUnifiedEndToEndFlowHubModal", "openUnifiedOmniShareHubModal", "openV1040ExampleSandboxModal", "openV1059UltimateRoadmapHubModal", "openVoiceTeamsAndJobcanHqModal", "parseVoiceTeamsPromptToForm", "parseVoiceTextToJobFields", "postNewNavJournalEntry", "previewActiveEmployeeBirthdayCard", "previewCorporateWorkflowFormA4", "previewSingleKpiReport", "previewSingleV1040SampleDocument", "proDockConvertQtToInvoice", "proDockOpenQuotationFromJob", "proDockSaveJobUpsert", "proDockSaveQuotationUpsert", "proDockShareJobAction", "proDockShareQtAction", "pullCloudSecurityAuditLogs", "pullUserCredentialsVaultFromCloud", "purgeAllV1040ExampleRecords", "pushSecurityAuditEventImmediate", "pushTestToLineDirAccount", "quickAddStandaloneQtPreset", "quickIssueFifoFromUi", "quickRestoreExistingStaffProfileV1176", "recalcImsSimulator", "receiveImsStockBatch", "recordAiDiagnosticFeedback", "recordEsgRefrigerantEntry", "recordLineOaInquiryCrmEntry", "refreshFlexStudioPreview", "refreshSavedQtOffersDatalist", "refreshStandaloneQtPartPrice", "refreshUnifiedAiCardPreview", "regenerateFlexStudioVisualPoster", "registerBiometricDevicePasskey", "registerNewIotDeviceMapping", "removeFlexStudioBodyRow", "removeFlexStudioButton", "removeStandaloneQtItemAt", "render3plModalBody_", "renderAdminSecurityRbacPanel", "renderDeepB2bPortalBody_", "renderEnterpriseImsMasterTable", "renderFlexStudioTabV1065", "renderGovEhsBody_", "renderHrWorkflowBody_", "renderHybridAccountingNavBody_", "renderKpiStudioBody_", "renderLifecycleSuiteTab_", "renderLineDirectoryTabV1065", "renderMktEmailBody_", "renderMlCaseMatchesV1129", "renderMyDailyRoleWorkspace", "renderNextGenAutonomousTab_", "renderOmniCommandResults", "renderPredictiveCopilotBody_", "renderQuickPartsGrid_", "renderSaleMarketingTab_", "renderUnifiedAiStudioTab_", "renderUnifiedFlowHubTab_", "renderV1057Tab_", "renderV1059UltimateHubTab_", "renderVoiceTeamsBody_", "requestCriticalActionLineOtp", "resolveHoshizakiGasUrl", "restoreDefault5KpiSampleReports", "restoreWorkInProgressSnapshotIfNeeded", "rollUpExpensesFromServiceJobs", "runAiVisionPhotoInspection", "runAutonomousSelfHealingSweepV1127", "runBatchReceiptOcrScan", "runComprehensiveSelfTestAndAutoHealV1040", "runExecutiveAiCopilotQuery", "runGeoTravelCalcNow", "runJobAutoSaveV1076", "runProductionGoLiveCleanReset", "runRealTimeNavErpBiDirectionalSync", "runSimulatedBotMessage", "runStorageColdArchiveCompaction", "runStructuralAuditV1060", "runUnifiedAutoCloudSyncCycle", "runUnifiedInputOutputPipeline", "runVisualPartPhotoMatch", "safeBackupAndUpdateAppNow", "safeLocalStorageSetItem", "saveAiGatewayCfgForm", "saveAndPushUnifiedAiCardToFlexStudio", "saveCompletedCaseMlV1129", "saveCurrentFlexStudioTemplate", "saveEmployeeBdayProfileForm", "saveIotBridgeSettingsForm", "saveLineAccountDirectoryEntry", "saveLineOaChatUrls", "saveStaffOnboardingProfileV1131", "saveStandaloneQuotationFullCycle", "saveVoiceSuggestionV1129", "selectStandaloneQtCustomerSuggestion", "selectUserForPasswordGate", "sendExecutiveFunnelCardToMgmtNow", "sendFlexStudioCardNow", "setActiveHoshizakiBranch", "setJobLifecycleStage", "setUnifiedCloudSyncPillState", "shareBirthdayWishToLineGroup", "showHoshizakiBirthdayGreetingCard", "simulateCustomerSnRouting_", "simulateEndToEndScenario", "simulateLiveIotTelemetryPing", "softLockReserveAgingUnit", "standardizeAllModalsAndPopupsV1058", "startAiVoiceToReport", "startArPinoutOverlayCamera", "startFreshStandaloneQuotation", "startHoshizakiVoiceRecognitionV1122", "startVoiceCreativeDirectorForFlexStudio", "startVoiceTeamsMeetingCapture", "stopArPinoutOverlayCamera", "stopWfhCameraStream_", "submitB2bUrgentServiceDispatch", "submitChangeOwnPassword", "submitImsGrnForm", "submitImsIssueForm", "submitNewLeaveRequestForm", "submitSpecialDiscountRequest", "switchAiHubTab", "switchBotDealerTab", "switchEnterpriseImsTab", "switchGovEhsTab", "switchIotHubTab", "syncAssetHealthToCloud", "syncComposedBannerToGoogleDrive", "syncImsWithAllEcosystemModules", "syncStandaloneQtMetaToDoc", "syncStandaloneQtRemarkToDoc", "syncUserCredentialsVaultToCloud", "testBiDirectionalNavSyncNow", "toggleExecutiveSafeDemoSandboxV1127", "toggleImsCoreSubmenuDropdown", "toggleImsFloatingMenu", "toggleImsSupplySubmenuDropdown", "toggleImsVanSubmenuDropdown", "toggleJobDockShareMenu", "toggleNavFullErpStandbyMode", "toggleQtDockShareMenu", "toggleStandaloneQtEditorCollapse", "triggerAutoSheetsBackupWithStatus", "triggerB2bBulkPmSchedule", "triggerDealerFollowUpScanNow", "triggerFilterPmAutopilotNow", "triggerMobileAutoStampNow", "triggerOneClickPredictiveLineFlex", "triggerOneClickPredictiveQuote", "unlockWithBiometricPasskey", "updateDealerRowChannelQuick", "updateEmpBdayComputedPreview", "updateInquiryActionOutcome", "updateV1057InfraConfig", "verifyAndUnlockStaffSession", "verifyPreSendAudienceGuardrail"];
@@ -782,8 +784,12 @@ transform: scale(0.96);
     window[fnName] = proxyFn;
   }
 
+  const V1195_FNS = ["completeFirstTimeOnboardingSubmit", "handleBusinessCardPhotoInput", "logoutV1195MobileSession", "onSelectV1195LoginUser", "openBusinessCardScannerModal", "openSalesMarketing360Board", "openV1195MobileLoginModal", "prefillV1195LoginUser", "recalcImportProposalRow", "saveScannedBusinessCardRecord", "selectV1195Company", "setV1195BoardTab", "setV1195Period", "setV1195TimelineFilter", "setV1195TopMetric", "setV1195TopN", "shareCompanyGoogleMapLine", "shareV1195PresentationRoomLink", "submitV1195MobileLogin", "toggleV1195CompareCompany", "toggleV1195PresentationMode"];
+  const V1196_FNS = ["addSmartBiWidgetV1196", "applySmartBiPresetV1196", "executeSmartBiVoiceTextV1196", "onSmartBiDragOverV1196", "onSmartBiDragStartV1196", "onSmartBiDropV1196", "openSmartIntelligentDashboardV1196", "removeSmartBiWidgetV1196", "resetAllSmartBiFiltersV1196", "resetSmartBiLayoutV1196", "setSmartBiLanguageV1196", "startSmartBiVoiceRecognitionV1196", "stateSearchQuickV1196", "syncSmartBiLayoutToCloudV1196", "toggleSmartBiBoardroomModeV1196", "toggleSmartBiFilterV1196", "toggleSmartBiWidgetSpanV1196", "updateSmartBiCompareV1196"];
   ENTERPRISE_FNS.forEach(function(fn) { registerProxy_(fn, 'enterprise'); });
   ADDON_FNS.forEach(function(fn) { registerProxy_(fn, 'addon'); });
+  V1195_FNS.forEach(function(fn) { registerProxy_(fn, 'v1195'); });
+  V1196_FNS.forEach(function(fn) { registerProxy_(fn, 'v1196'); });
 
   // Early capture-phase error suppressor for transient ReferenceError on known deferred functions
   window.addEventListener('error', function(ev) {
@@ -949,7 +955,7 @@ transform: scale(0.96);
 </div>
 </div>
 <div class="flex flex-wrap items-center gap-1.5 mt-1 min-w-0">
-<p class="text-[11px] sm:text-xs text-hoshizaki-blue">Job Service Management System <span class="text-[10px] bg-emerald-500/35 border border-emerald-300/60 px-2 py-0.2 rounded-full text-emerald-100 font-extrabold shadow-xs">Enterprise V.1194</span>
+<p class="text-[11px] sm:text-xs text-hoshizaki-blue">Job Service Management System <span class="text-[10px] bg-emerald-500/35 border border-emerald-300/60 px-2 py-0.2 rounded-full text-emerald-100 font-extrabold shadow-xs">Enterprise V.1197</span>
 <button type="button" id="btnToggleCompactHeaderV1194" onclick="toggleCompactHeaderV1194()" class="hzk-compact-pill text-[10px] bg-white/15 hover:bg-white/25 text-sky-100 border border-white/30 px-2 rounded-full font-bold transition inline-flex items-center gap-1" title="ย่อ/ขยายแถบส่วนหัวไม่ให้รกจอ">
 <i class="fa-solid fa-compress"></i> <span id="lblCompactHeaderV1194">ย่อส่วนหัว</span>
 </button>
@@ -1031,7 +1037,7 @@ transform: scale(0.96);
 สลับเป็นโหมดช่างดำเนินงาน
 </button>
 </div>
-<!-- แถบกระดานงานประจำวันเฉพาะตำแหน่ง (My Daily Role Workspace — Enterprise V.1194-OMNI-PLAYLIST-READY · ≤30 Core Users) -->
+<!-- แถบกระดานงานประจำวันเฉพาะตำแหน่ง (My Daily Role Workspace — Enterprise V.1197-DEEP-SCAN-VERIFIED · ≤30 Core Users) -->
 <div id="myDailyRoleWorkspaceBar" class="mt-2 rounded-xl bg-white/10 border border-white/20 p-2 text-xs">
 <div class="flex flex-wrap items-center justify-between gap-1.5 mb-1.5 px-1">
 <span id="myDailyWorkspaceTitle" class="font-extrabold text-sky-200 flex items-center gap-1.5">
@@ -1921,7 +1927,7 @@ transform: scale(0.96);
 </nav>
 <!-- Main Job Sheet Printable Container -->
 <main id="jobSheetContainer" class="print-container max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-3.5 sm:p-6 space-y-4 border border-gray-200">
-<!-- Visual 5-Stage End-to-End Lifecycle Stepper (Enterprise V.1194-OMNI-PLAYLIST-READY) -->
+<!-- Visual 5-Stage End-to-End Lifecycle Stepper (Enterprise V.1197-DEEP-SCAN-VERIFIED) -->
 <div id="jobEndToEndStepperBar" class="no-print bg-gradient-to-r from-[#002B49] via-sky-900 to-emerald-900 text-white rounded-xl p-2.5 shadow-sm border border-sky-300/40">
   <div class="flex flex-wrap items-center justify-between gap-1.5 mb-2 px-1">
     <span class="text-[11px] font-extrabold text-amber-300 flex items-center gap-1.5">
@@ -2764,13 +2770,13 @@ SERVICE REPORT / ใบแจ้งบริการ
 </div>
 </div>
 </div>
-<!-- V.1194 Mandatory 4-Point Electrical & Grounding Safety Checklist (Item 10) -->
-<div id="v1194FourPointGroundCheckBox" class="border-2 border-amber-300 rounded-xl p-3 bg-amber-50/70 space-y-2 text-xs">
+<!-- V.1195 Mandatory 4-Point Electrical & Grounding Safety Checklist (Item 10) -->
+<div id="v1195FourPointGroundCheckBox" class="border-2 border-amber-300 rounded-xl p-3 bg-amber-50/70 space-y-2 text-xs">
   <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200 pb-1.5">
     <span class="font-extrabold text-[#002B49] flex items-center gap-1.5">
       <i class="fa-solid fa-bolt text-amber-600"></i> บังคับตรวจเช็กความปลอดภัยระบบไฟฟ้า &amp; สายดิน 4 จุด (Mandatory 4-Point Grounding Check)
     </span>
-    <span id="v1194GroundStatusBadge" class="bg-rose-100 text-rose-800 border border-rose-300 px-2 py-0.5 rounded-full text-[10.5px] font-extrabold">กรุณาติ๊กตรวจครบ 4 จุดก่อนพิมพ์ PDF</span>
+    <span id="v1195GroundStatusBadge" class="bg-rose-100 text-rose-800 border border-rose-300 px-2 py-0.5 rounded-full text-[10.5px] font-extrabold">กรุณาติ๊กตรวจครบ 4 จุดก่อนพิมพ์ PDF</span>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
     <label class="flex items-center gap-2 bg-white border border-amber-200 rounded-lg p-2 cursor-pointer font-semibold text-slate-800">
@@ -2797,7 +2803,7 @@ SERVICE REPORT / ใบแจ้งบริการ
     </label>
     <span class="text-[10.5px] text-slate-600">หมายเหตุ: ช่องน้ำยา PSI ไม่บังคับกรอก (แจ้งเตือนเฉพาะเมื่อกรอกแล้วหลุดสเปก)</span>
   </div>
-  <div id="v1194NoGroundPdfBanner" class="hidden bg-rose-600 text-white rounded-lg p-2.5 text-xs font-extrabold border-2 border-rose-900">
+  <div id="v1195NoGroundPdfBanner" class="hidden bg-rose-600 text-white rounded-lg p-2.5 text-xs font-extrabold border-2 border-rose-900">
     ⚠️ คำเตือนความปลอดภัย (NO GROUND ALERT): หน้างานยังไม่ได้ติดตั้งสายดิน (Ground) ตามมาตรฐานวิศวกรรม HOSHIZAKI อาจเกิดไฟฟ้ารั่วหรือความเสียหายต่อแผงวงจรควบคุม ทางบริษัทฯ ขอสงวนสิทธิ์การรับประกันอุปกรณ์อิเล็กทรอนิกส์จนกว่าจะติดตั้งสายดินเรียบร้อย
   </div>
 </div>
@@ -2948,7 +2954,7 @@ SERVICE REPORT / ใบแจ้งบริการ
 <!-- Web App UI Footer -->
 <div class="no-print bg-hoshizaki-navy/95 text-white/90 rounded-xl px-4 py-2.5 shadow-sm border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-1 text-[11px]">
 <div class="font-extrabold tracking-wide text-amber-300">
-HOSHIZAKI™ GLOBAL ENTERPRISE <span class="text-white/70 font-normal">| Enterprise V.1194-OMNI-PLAYLIST-READY</span>
+HOSHIZAKI™ GLOBAL ENTERPRISE <span class="text-white/70 font-normal">| Enterprise V.1197-DEEP-SCAN-VERIFIED</span>
 </div>
 <div class="text-white/80 font-medium">
 <span onclick="showCreatorCreditPopup()" class="cursor-pointer hover:text-amber-200 transition underline decoration-dotted underline-offset-2" title="Service Management System">Service Management System</span> · <span class="text-rose-300 font-bold">For Internal Use Only</span>
@@ -19984,7 +19990,7 @@ function openFullScreenSpecViewerModal(presetModel) {
             } catch (e) {}
         });
     </script>
-<!-- Full-Screen Serial 360° Dossier Modal (Enterprise V.1194-OMNI-PLAYLIST-READY) -->
+<!-- Full-Screen Serial 360° Dossier Modal (Enterprise V.1197-DEEP-SCAN-VERIFIED) -->
 <div id="serial360FullScreenModal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[85] flex items-center justify-center p-0 sm:p-3 no-print">
 <div class="bg-white w-full h-full sm:h-[95vh] sm:max-w-6xl sm:rounded-2xl shadow-2xl border border-sky-200 flex flex-col overflow-hidden">
 <!-- Top Navy Header -->
@@ -22880,7 +22886,7 @@ function openFullScreenSpecViewerModal(presetModel) {
         });
     
         // =========================================================================
-        // Enterprise V.1194-OMNI-PLAYLIST-READY AUTO-LEARN MASTER DATABASE + GEOFENCE AUTO CHECK-IN/OUT + DIRECT PDF/IMAGE UPLOAD
+        // Enterprise V.1197-DEEP-SCAN-VERIFIED AUTO-LEARN MASTER DATABASE + GEOFENCE AUTO CHECK-IN/OUT + DIRECT PDF/IMAGE UPLOAD
         // =========================================================================
 
         function autoPersistNewMasterDataFromJob(jobData) {
@@ -30726,7 +30732,7 @@ transition: all 0.15s ease;
         }
 
         const passed = checks.filter(c => c.ok).length;
-        badgeEl.innerHTML = `<span class="${passed === checks.length ? 'text-emerald-700' : 'text-amber-700'}">ผลการตรวจสอบ: PASS ${passed} / ${checks.length} รายการ (Enterprise V.1194-OMNI-PLAYLIST-READY)</span>`;
+        badgeEl.innerHTML = `<span class="${passed === checks.length ? 'text-emerald-700' : 'text-amber-700'}">ผลการตรวจสอบ: PASS ${passed} / ${checks.length} รายการ (Enterprise V.1197-DEEP-SCAN-VERIFIED)</span>`;
         listEl.innerHTML = checks.map(c => `
             <div class="flex items-center justify-between px-3 py-1.5 rounded-lg border ${c.ok ? 'bg-emerald-50/70 border-emerald-200 text-emerald-950' : 'bg-rose-50 border-rose-200 text-rose-950'}">
                 <span class="font-medium">${c.name}</span>
@@ -30920,7 +30926,7 @@ display: none !important;
 
     const TRILINGUAL_LABELS = {
         TH: {
-            subtitle: 'ระบบบริหารจัดการงานบริการภาคสนามครบวงจร (Enterprise V.1194-OMNI-PLAYLIST-READY)',
+            subtitle: 'ระบบบริหารจัดการงานบริการภาคสนามครบวงจร (Enterprise V.1197-DEEP-SCAN-VERIFIED)',
             selectTech: 'เลือกโปรไฟล์ช่าง',
             pullCloud: 'ดึงข้อมูล Cloud',
             kpiDash: 'แดชบอร์ด KPI',
@@ -30929,7 +30935,7 @@ display: none !important;
             execBriefBtn: 'สรุปผู้บริหาร 3 ภาษา (TH/EN/JP)'
         },
         EN: {
-            subtitle: 'Enterprise Digital Field Service Management (Enterprise V.1194-OMNI-PLAYLIST-READY)',
+            subtitle: 'Enterprise Digital Field Service Management (Enterprise V.1197-DEEP-SCAN-VERIFIED)',
             selectTech: 'Technician Profile',
             pullCloud: 'Two-Way Cloud Sync',
             kpiDash: 'Executive KPI',
@@ -30938,7 +30944,7 @@ display: none !important;
             execBriefBtn: 'Trilingual Exec Brief (TH/EN/JP)'
         },
         JP: {
-            subtitle: '統合デジタルフィールドサービス管理システム (Enterprise V.1194-OMNI-PLAYLIST-READY)',
+            subtitle: '統合デジタルフィールドサービス管理システム (Enterprise V.1197-DEEP-SCAN-VERIFIED)',
             selectTech: 'エンジニア選択',
             pullCloud: 'クラウド双方向同期',
             kpiDash: '経営KPIダッシュボード',
@@ -31020,21 +31026,21 @@ display: none !important;
                 <div class="border border-slate-200 rounded-xl p-3 bg-slate-50">
                     <div class="font-extrabold text-hoshizaki-navy mb-1">🇹🇭 สรุปรายงานผู้บริหาร (ภาษาไทย — Phase 1 Service Unit &amp; Service Center)</div>
                     <p class="text-slate-700 leading-relaxed">
-                        ระบบ HOSHIZAKI Job Service Management (Enterprise V.1194-OMNI-PLAYLIST-READY) เปิดใช้งานจริงในเฟสที่ 1 (Service Unit และ Service Center) โดยมีใบงานสะสมในระบบ <b>${jobs.length}</b> รายการ ปิดงานสำเร็จ <b>${completed}</b> รายการ (อัตราซ่อมสำเร็จ ${ftfr}%) งานค้างรออะไหล่ <b>${waiting}</b> รายการ และยอดรวมค่าบริการและอะไหล่ <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b> ระบบควบคุมการแจ้งเตือนเฉพาะหน่วยงานบริการ 100% พร้อมรองรับการขยายสู่ Admin Unit และ Accounting Unit ในเฟสถัดไป
+                        ระบบ HOSHIZAKI Job Service Management (Enterprise V.1197-DEEP-SCAN-VERIFIED) เปิดใช้งานจริงในเฟสที่ 1 (Service Unit และ Service Center) โดยมีใบงานสะสมในระบบ <b>${jobs.length}</b> รายการ ปิดงานสำเร็จ <b>${completed}</b> รายการ (อัตราซ่อมสำเร็จ ${ftfr}%) งานค้างรออะไหล่ <b>${waiting}</b> รายการ และยอดรวมค่าบริการและอะไหล่ <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b> ระบบควบคุมการแจ้งเตือนเฉพาะหน่วยงานบริการ 100% พร้อมรองรับการขยายสู่ Admin Unit และ Accounting Unit ในเฟสถัดไป
                     </p>
                 </div>
 
                 <div class="border border-slate-200 rounded-xl p-3 bg-sky-50/50">
                     <div class="font-extrabold text-hoshizaki-navy mb-1">🇬🇧 Executive Operations Summary (Corporate English)</div>
                     <p class="text-slate-700 leading-relaxed">
-                        The HOSHIZAKI Enterprise V.1194-OMNI-PLAYLIST-READY Field Service Platform is live in Phase 1 (Service Unit &amp; Service Center). Out of <b>${jobs.length}</b> total logged service jobs, <b>${completed}</b> have been completed (${ftfr}% resolution rate), with <b>${waiting}</b> jobs awaiting spare parts and cumulative service revenue of <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b>. Automated notifications remain strictly isolated to Service operations prior to Phase 2 Admin &amp; Accounting rollout.
+                        The HOSHIZAKI Enterprise V.1197-DEEP-SCAN-VERIFIED Field Service Platform is live in Phase 1 (Service Unit &amp; Service Center). Out of <b>${jobs.length}</b> total logged service jobs, <b>${completed}</b> have been completed (${ftfr}% resolution rate), with <b>${waiting}</b> jobs awaiting spare parts and cumulative service revenue of <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b>. Automated notifications remain strictly isolated to Service operations prior to Phase 2 Admin &amp; Accounting rollout.
                     </p>
                 </div>
 
                 <div class="border border-amber-200 rounded-xl p-3 bg-amber-50/40">
                     <div class="font-extrabold text-hoshizaki-navy mb-1">🇯🇵 エグゼクティブ業務サマリー（日本語・経営報告用）</div>
                     <p class="text-slate-800 leading-relaxed">
-                        ホシザキ・タイランド サービス業務管理システム（Enterprise V.1194-OMNI-PLAYLIST-READY）は、第1フェーズ（サービス部およびサービスセンター限定）にて本稼働しております。現在の累計登録案件数は <b>${jobs.length}件</b>、作業完了は <b>${completed}件</b>（完了率 ${ftfr}%）、部品入荷待ちは <b>${waiting}件</b>、サービス・部品売上累計は <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b> です。他部署への自動通知は完全に分離されており、第2フェーズでの管理部・経理部連携へ安全に拡張可能です。
+                        ホシザキ・タイランド サービス業務管理システム（Enterprise V.1197-DEEP-SCAN-VERIFIED）は、第1フェーズ（サービス部およびサービスセンター限定）にて本稼働しております。現在の累計登録案件数は <b>${jobs.length}件</b>、作業完了は <b>${completed}件</b>（完了率 ${ftfr}%）、部品入荷待ちは <b>${waiting}件</b>、サービス・部品売上累計は <b>${totalRev.toLocaleString('en-US', {minimumFractionDigits:2})} THB</b> です。他部署への自動通知は完全に分離されており、第2フェーズでの管理部・経理部連携へ安全に拡張可能です。
                     </p>
                 </div>
             </div>
@@ -34046,9 +34052,9 @@ Loaner / Demo Machine Tracker • AI Spare Parts Demand Forecasting)
             JP: 'ホシザキ・タイランド サービス部 経営会議プレゼンテーション資料'
         };
         const subMap = {
-            TH: 'บริษัท โฮชิซากิ (ประเทศไทย) จำกัด • ระบบบริหารงานบริการหลังการขาย Enterprise V.1194-OMNI-PLAYLIST-READY',
-            EN: 'HOSHIZAKI (THAILAND) LIMITED • After-Sales Field Service Intelligence (Enterprise V.1194-OMNI-PLAYLIST-READY)',
-            JP: 'ホシザキ・タイランド株式会社 • 統合アフターサービス経営分析レポート (Enterprise V.1194-OMNI-PLAYLIST-READY)'
+            TH: 'บริษัท โฮชิซากิ (ประเทศไทย) จำกัด • ระบบบริหารงานบริการหลังการขาย Enterprise V.1197-DEEP-SCAN-VERIFIED',
+            EN: 'HOSHIZAKI (THAILAND) LIMITED • After-Sales Field Service Intelligence (Enterprise V.1197-DEEP-SCAN-VERIFIED)',
+            JP: 'ホシザキ・タイランド株式会社 • 統合アフターサービス経営分析レポート (Enterprise V.1197-DEEP-SCAN-VERIFIED)'
         };
 
         const deckHtml = `<!DOCTYPE html>
@@ -34110,7 +34116,7 @@ Loaner / Demo Machine Tracker • AI Spare Parts Demand Forecasting)
       <tbody>${(d.topModels.length ? d.topModels : [['IM / KM / FM Series', d.totalJobs]]).map(([m, c]) => `<tr><td><b>${m}</b></td><td>${c}</td><td>${d.totalJobs ? Math.round((c/d.totalJobs)*100) : 100}%</td></tr>`).join('')}</tbody>
     </table>
   </div>
-  <div class="ftr"><span>Prepared By: Noparin Homhoul — Deputy Service Manager, Hoshizaki (Thailand) Limited</span><span>Enterprise V.1194-OMNI-PLAYLIST-READY Live Report</span></div>
+  <div class="ftr"><span>Prepared By: Noparin Homhoul — Deputy Service Manager, Hoshizaki (Thailand) Limited</span><span>Enterprise V.1197-DEEP-SCAN-VERIFIED Live Report</span></div>
 </div>
 
 <!-- Slide 2: 360 Workforce & Outsource Scorecard -->
@@ -34335,7 +34341,7 @@ ONE-FILE PORTABLE MASTER BACKUP / MIGRATION BUNDLE
 <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col max-h-[94dvh] border border-slate-200">
 <div class="bg-gradient-to-r from-[#0f172a] via-[#002B49] to-[#0369a1] text-white px-4 py-3 rounded-t-2xl flex flex-wrap items-center justify-between gap-2">
 <div>
-<h3 class="font-extrabold text-sm sm:text-base"><i class="fa-solid fa-sliders text-amber-300 mr-1.5"></i>Developer &amp; Admin Control Studio (Enterprise V.1194-OMNI-PLAYLIST-READY — Multi-Branch &amp; White-Label Ready)</h3>
+<h3 class="font-extrabold text-sm sm:text-base"><i class="fa-solid fa-sliders text-amber-300 mr-1.5"></i>Developer &amp; Admin Control Studio (Enterprise V.1197-DEEP-SCAN-VERIFIED — Multi-Branch &amp; White-Label Ready)</h3>
 <p class="text-[11px] text-sky-200">ศูนย์ควบคุมสำหรับผู้ดูแลระบบและผู้พัฒนา: เปิด/ปิดฟีเจอร์ • โหมดจำลองตรวจสอบก่อนใช้งานจริง (Staging Sandbox) • โคลนไฟล์เดียวสำหรับสาขา/ต่างประเทศ • สำรองข้อมูลและย้ายเซิร์ฟเวอร์</p>
 </div>
 <div class="flex items-center gap-1.5">
@@ -38389,7 +38395,7 @@ CUSTOMER CSAT & 7-DAY POST-SERVICE QUALITY RADAR MODAL (v1131-AUTO-FIRST-TIME-ST
                         <div>
                             <h3 class="font-extrabold text-sm sm:text-base flex items-center gap-2">
                                 <i class="fa-solid fa-layer-group text-[#00A3E0]"></i>
-                                <span>HOSHIZAKI Enterprise V.1194-OMNI-PLAYLIST-READY — ระบบบริหารงานบริการครบวงจร 4 มิติ</span>
+                                <span>HOSHIZAKI Enterprise V.1197-DEEP-SCAN-VERIFIED — ระบบบริหารงานบริการครบวงจร 4 มิติ</span>
                             </h3>
                             <p class="text-[11px] text-sky-200">Visual Flat-Rate Menu • Skill-Based Dispatch • Van Min/Max Auto-Restock • Outsource Billing & Predictive BI</p>
                         </div>
@@ -38914,7 +38920,7 @@ FIELD TECHNICIAN + COORDINATOR OPERATIONAL SUITE
                 <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-sky-200">
                     <div class="bg-gradient-to-r from-[#002B49] to-[#0082C8] text-white px-4 py-3 flex items-center justify-between">
                         <div>
-                            <span class="bg-emerald-400 text-[#002B49] text-[10px] font-black px-2 py-0.5 rounded-full">Enterprise V.1194-OMNI-PLAYLIST-READY</span>
+                            <span class="bg-emerald-400 text-[#002B49] text-[10px] font-black px-2 py-0.5 rounded-full">Enterprise V.1197-DEEP-SCAN-VERIFIED</span>
                             <h3 class="font-extrabold text-sm sm:text-base mt-0.5">ผู้ช่วยช่างภาคสนาม &amp; ศูนย์ประสานงานรวดเร็ว (Field &amp; Coordinator Suite)</h3>
                         </div>
                         <button type="button" onclick="document.getElementById('fieldAndCoordinatorOpsModal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white rounded-lg w-8 h-8 font-extrabold text-lg">&times;</button>
@@ -39822,7 +39828,7 @@ Accounting VAT/WHT Ledger, Invoice/Receipt & NAV ERP Export • Audit Trail)
                     <div class="bg-gradient-to-r from-[#002B49] via-[#00406B] to-[#0082C8] text-white px-4 py-3 flex items-center justify-between">
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="bg-amber-400 text-[#002B49] text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Enterprise V.1194-OMNI-PLAYLIST-READY</span>
+                                <span class="bg-amber-400 text-[#002B49] text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Enterprise V.1197-DEEP-SCAN-VERIFIED</span>
                                 <h3 class="font-extrabold text-sm sm:text-base">ศูนย์บริหารจัดการ ผู้บริหาร • แอดมิน • บัญชี (Executive, Admin &amp; Accounting Hub)</h3>
                             </div>
                             <p class="text-[11px] text-sky-100 mt-0.5">GP% &amp; Discount Approval Gatekeeper • Admin PO/Document QC • Accounting VAT/WHT &amp; NAV ERP Export • Immutable Audit Log</p>
@@ -41372,7 +41378,7 @@ margin-top: 0.5rem;
 <div>
 <h2 class="text-sm sm:text-base font-extrabold tracking-wide flex items-center gap-2">
 <span>HOSHIZAKI AI Field Co-Pilot &amp; IoT Digital Twin Suite</span>
-<span class="text-[10px] bg-amber-400/25 border border-amber-300/50 text-amber-200 px-2 py-0.5 rounded-full">Enterprise V.1194-OMNI-PLAYLIST-READY</span>
+<span class="text-[10px] bg-amber-400/25 border border-amber-300/50 text-amber-200 px-2 py-0.5 rounded-full">Enterprise V.1197-DEEP-SCAN-VERIFIED</span>
 </h2>
 <p class="text-[11px] text-sky-200">1. Digital Twin &amp; Root-Cause · 2. Vision &amp; Voice Report · 3. Auto-Dispatch &amp; Van Pre-Alloc · 4. AI Triage &amp; Upsell · 5. Executive AI Copilot</p>
 </div>
@@ -41416,7 +41422,7 @@ margin-top: 0.5rem;
 <div>
 <h2 class="text-sm sm:text-base font-extrabold tracking-wide flex items-center gap-2">
 <span>HOSHIZAKI Enterprise Governance, EHS/ESG, NAV ERP &amp; Role Guide</span>
-<span class="text-[10px] bg-emerald-400/25 border border-emerald-300/50 text-emerald-200 px-2 py-0.5 rounded-full">Enterprise V.1194-OMNI-PLAYLIST-READY</span>
+<span class="text-[10px] bg-emerald-400/25 border border-emerald-300/50 text-emerald-200 px-2 py-0.5 rounded-full">Enterprise V.1197-DEEP-SCAN-VERIFIED</span>
 </h2>
 <p class="text-[11px] text-sky-200">1. PDPA &amp; Audit Trail · 2. Van Cycle Count &amp; Defective QR · 3. EHS LOTO &amp; ESG Carbon · 4. NAV ERP &amp; Split Billing · 5. In-App Role Guide &amp; Batch QR</p>
 </div>
@@ -41717,7 +41723,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
 </div>
 </div>
 
-<script src="./hzk_enterprise_modules.js?v=1194" defer onload="this.dataset.hzkLoaded='1'"></script>
+<script src="./hzk_enterprise_modules.js?v=1197" defer onload="this.dataset.hzkLoaded='1'"></script>
 <script>
 (function() {
   let _partsDatalistHydrated = false;
@@ -41847,7 +41853,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   setTimeout(window.installUnifiedDualLineTabRouterV1065, 1000);
 })();
 </script>
-<script src="./hzk_sales_crm_quotation_addon.js?v=1194" onload="this.dataset.hzkLoaded='1'"></script>
+<script src="./hzk_sales_crm_quotation_addon.js?v=1197" onload="this.dataset.hzkLoaded='1'"></script>
 
 <style id="v1167-ENHANCED-DARKMODE-AND-BRIDGE-CSS">
   /* Hide multi-branch selector bars cleanly (Locked to BKK Head Office) */
@@ -42833,15 +42839,15 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
 
 
 <!-- ========================================================================= -->
-<!-- HOSHIZAKI ENTERPRISE V.1194 — COMPLETE DAILY UPDATE PLAYLIST ENGINE       -->
+<!-- HOSHIZAKI ENTERPRISE V.1195 — COMPLETE DAILY UPDATE PLAYLIST ENGINE       -->
 <!-- Items 1-13: Smart Parts 360°, Compact Header, 3-Slot Part Photo Capture,  -->
 <!-- OCR New Part [NEW], 3-Tier Compatibility, Optional PSI, 4-Pt Ground PDF,  -->
 <!-- Confidential Multi-Branch Dealer Portal, 4-Location Stock & Custody,      -->
 <!-- and 1-Click Evening Daily Report & Factory GIT Report Importer            -->
 <!-- ========================================================================= -->
-<style id="v1194-playlist-styles">
+<style id="v1195-playlist-styles">
   @media print {
-    #v1194NoGroundPdfBanner:not(.hidden) {
+    #v1195NoGroundPdfBanner:not(.hidden) {
       display: block !important;
       background: #fff1f2 !important;
       color: #9f1239 !important;
@@ -42850,37 +42856,37 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
       padding: 8px 10px !important;
       margin-top: 8px !important;
     }
-    #v1194FourPointGroundCheckBox {
+    #v1195FourPointGroundCheckBox {
       border: 1.5px solid #334155 !important;
       background: #ffffff !important;
       page-break-inside: avoid;
     }
   }
-  header.v1194-compact-mode #topHeaderStatusPillsRow {
+  header.v1195-compact-mode #topHeaderStatusPillsRow {
     display: none !important;
   }
 </style>
-<script id="v1194-daily-update-playlist-engine">
+<script id="v1195-daily-update-playlist-engine">
 (function() {
-  const V1194_CUSTOM_PARTS_KEY = 'hzk_v1194_custom_ocr_parts_catalog';
-  const V1194_CUSTODY_STOCK_KEY = 'hzk_v1194_multi_location_custody';
-  const V1194_GIT_LOG_KEY = 'hzk_v1194_factory_git_reports';
-  const V1194_DEALER_SESSION_KEY = 'hzk_v1194_dealer_portal_session';
+  const V1194_CUSTOM_PARTS_KEY = 'hzk_v1195_custom_ocr_parts_catalog';
+  const V1194_CUSTODY_STOCK_KEY = 'hzk_v1195_multi_location_custody';
+  const V1194_GIT_LOG_KEY = 'hzk_v1195_factory_git_reports';
+  const V1194_DEALER_SESSION_KEY = 'hzk_v1195_dealer_portal_session';
 
   function escHtmlV1194(s) {
     return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   // -------------------------------------------------------------------------
-  // ITEM 1-3: Compact Header Toggle & Version Badge Sync (V.1194)
+  // ITEM 1-3: Compact Header Toggle & Version Badge Sync (V.1195)
   // -------------------------------------------------------------------------
   window.toggleCompactHeaderV1194 = function() {
     const hdr = document.querySelector('header.bg-hoshizaki-navy');
     if (!hdr) return;
-    const isCompact = hdr.classList.toggle('v1194-compact-mode');
+    const isCompact = hdr.classList.toggle('v1195-compact-mode');
     const lbl = document.getElementById('lblCompactHeaderV1194');
     if (lbl) lbl.textContent = isCompact ? 'ขยายส่วนหัว' : 'ย่อส่วนหัว';
-    localStorage.setItem('hzk_v1194_compact_header', isCompact ? '1' : '0');
+    localStorage.setItem('hzk_v1195_compact_header', isCompact ? '1' : '0');
   };
 
   // -------------------------------------------------------------------------
@@ -42916,8 +42922,8 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     const p3 = !!document.getElementById('chkGroundPt3')?.checked;
     const p4 = !!document.getElementById('chkGroundPt4')?.checked;
     const noGround = !!document.getElementById('chkNoGroundDetectedV1194')?.checked;
-    const badge = document.getElementById('v1194GroundStatusBadge');
-    const pdfBanner = document.getElementById('v1194NoGroundPdfBanner');
+    const badge = document.getElementById('v1195GroundStatusBadge');
+    const pdfBanner = document.getElementById('v1195NoGroundPdfBanner');
     const checkedCount = [p1, p2, p3, p4].filter(Boolean).length;
 
     if (pdfBanner) pdfBanner.classList.toggle('hidden', !noGround);
@@ -42942,7 +42948,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     if ((mode || 'JOB') === 'JOB') {
       const st = window.evaluateFourPointGroundCheckV1194();
       if (!st.isValid) {
-        document.getElementById('v1194FourPointGroundCheckBox')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('v1195FourPointGroundCheckBox')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         alert('⚠️ กรุณาติ๊กตรวจสอบความปลอดภัยระบบไฟฟ้า & สายดินให้ครบทั้ง 4 จุด (หรือติ๊กช่อง "ไม่มีสายดิน") ก่อนสั่งพิมพ์ / บันทึก PDF ครับ');
         return;
       }
@@ -42954,8 +42960,8 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   // ITEM 4-7: 3-Slot Part Photo Capture (Old / New / Installed) + Auto-Add
   // -------------------------------------------------------------------------
   window.attachThreeSlotPartCamerasToRowV1194 = function(tr, rowData) {
-    if (!tr || tr.dataset.v1194PhotoAttached === '1') return;
-    tr.dataset.v1194PhotoAttached = '1';
+    if (!tr || tr.dataset.v1195PhotoAttached === '1') return;
+    tr.dataset.v1195PhotoAttached = '1';
     const descCell = tr.querySelector('td:nth-child(2)');
     if (!descCell) return;
 
@@ -42969,11 +42975,11 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     bar.innerHTML = slots.map(s => `
       <label class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border ${s.color} font-bold cursor-pointer hover:opacity-90">
         <span>${s.label}</span>
-        <span class="v1194-slot-count text-[9px] font-black" data-slot="${s.key}">0</span>
+        <span class="v1195-slot-count text-[9px] font-black" data-slot="${s.key}">0</span>
         <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleV1194PartSlotPhoto(this, '${s.key}')">
       </label>
     `).join('') + `
-      <select class="v1194-part-custody border border-slate-300 rounded px-1.5 py-0.5 bg-slate-50 font-bold text-slate-700" title="จุดตัดสต็อก/เบิกอะไหล่ 4 จุดจัดเก็บ">
+      <select class="v1195-part-custody border border-slate-300 rounded px-1.5 py-0.5 bg-slate-50 font-bold text-slate-700" title="จุดตัดสต็อก/เบิกอะไหล่ 4 จุดจัดเก็บ">
         <option value="VAN_T01_T08">🚐 รถช่าง T01–T08</option>
         <option value="HHE_MAIN_WH">🏭 โกดังใหญ่ HHE</option>
         <option value="ADMIN_OFFICE_STOCK">🏢 สต็อกสำรองออฟฟิศ Admin</option>
@@ -42981,7 +42987,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
       </select>
     `;
     if (rowData && rowData.custodySource) {
-      const sel = bar.querySelector('.v1194-part-custody');
+      const sel = bar.querySelector('.v1195-part-custody');
       if (sel) sel.value = rowData.custodySource;
     }
     descCell.appendChild(bar);
@@ -42992,8 +42998,8 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     if (!file) return;
     const tr = inputEl.closest('tr.parts-row');
     const partDesc = tr?.querySelector('.parts-desc')?.value || 'อะไหล่ไม่ระบุชื่อ';
-    const custodySource = tr?.querySelector('.v1194-part-custody')?.value || 'VAN_T01_T08';
-    const badge = tr?.querySelector('.v1194-slot-count[data-slot="' + slotKey + '"]');
+    const custodySource = tr?.querySelector('.v1195-part-custody')?.value || 'VAN_T01_T08';
+    const badge = tr?.querySelector('.v1195-slot-count[data-slot="' + slotKey + '"]');
     if (badge) badge.textContent = String(Number(badge.textContent || '0') + 1) + '✓';
 
     const slotLabelMap = { OLD: 'อะไหล่เก่า (ก่อนเปลี่ยน)', NEW: 'อะไหล่ใหม่ (แกะกล่อง)', AFTER: 'ติดตั้งหลังเปลี่ยนเสร็จ' };
@@ -43071,7 +43077,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
             <div>
               <h3 class="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 <i class="fa-solid fa-magnifying-glass-plus text-amber-300"></i>
-                <span>Smart Parts Search 360° &amp; 4-Location Custody Locator (V.1194)</span>
+                <span>Smart Parts Search 360° &amp; 4-Location Custody Locator (V.1195)</span>
               </h3>
               <p class="text-[11px] text-sky-200">ค้นหาเว้นวรรค/คอมม่า/รหัสย่อ 3–4 ตัวอักษร • เทียบพาร์ท 3 ระดับ • ยอดคงเหลือ 4 จุดจัดเก็บ (HHE / Admin / รถช่าง / Advance+GIT) • OCR พาร์ทใหม่ [NEW]</p>
             </div>
@@ -43084,7 +43090,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
                 <i class="fa-solid fa-camera"></i> <span>+ OCR สร้างพาร์ทใหม่ [NEW]</span>
               </button>
             </div>
-            <div id="v1194NewOcrPartDrawer" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-xl p-3 space-y-2">
+            <div id="v1195NewOcrPartDrawer" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-xl p-3 space-y-2">
               <div class="font-extrabold text-emerald-950 flex items-center justify-between">
                 <span><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> สแกนฉลากพาร์ท (OCR) หรือเพิ่มรหัสอะไหล่ใหม่เข้าแค็ตตาล็อก (ติดป้าย NEW)</span>
                 <label class="bg-[#002B49] text-white px-2.5 py-1 rounded-lg cursor-pointer text-[11px]">
@@ -43113,7 +43119,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   };
 
   window.toggleNewOcrPartDrawerV1194 = function() {
-    document.getElementById('v1194NewOcrPartDrawer')?.classList.toggle('hidden');
+    document.getElementById('v1195NewOcrPartDrawer')?.classList.toggle('hidden');
   };
 
   window.scanPartLabelOcrV1194 = function(ev) {
@@ -43143,7 +43149,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     const item = { partNo, desc, models, price, tier: 'TIER_1_EXACT', isNew: true, createdAt: new Date().toISOString() };
     list.unshift(item);
     localStorage.setItem(V1194_CUSTOM_PARTS_KEY, JSON.stringify(list));
-    document.getElementById('v1194NewOcrPartDrawer')?.classList.add('hidden');
+    document.getElementById('v1195NewOcrPartDrawer')?.classList.add('hidden');
     window.runSmartParts360Search(partNo);
     if (typeof showToast === 'function') showToast('✅ สร้างพาร์ทใหม่ [' + partNo + '] ติดป้าย NEW เรียบร้อย');
   };
@@ -43155,7 +43161,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
     let catalog = Array.isArray(window.HOSHIZAKI_PARTS_CATALOG) ? window.HOSHIZAKI_PARTS_CATALOG : [];
     if (catalog.length === 0) {
       try {
-        const res = await fetch('./parts_catalog.json?v=1194');
+        const res = await fetch('./parts_catalog.json?v=1197');
         const json = await res.json();
         catalog = Array.isArray(json) ? json : (json.parts || json.items || []);
         window.HOSHIZAKI_PARTS_CATALOG = catalog;
@@ -43254,7 +43260,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
             <div>
               <h3 class="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 <i class="fa-solid fa-building-lock text-amber-300"></i>
-                <span>Confidential Multi-Branch Dealer Portal (Zero Data Leakage — V.1194)</span>
+                <span>Confidential Multi-Branch Dealer Portal (Zero Data Leakage — V.1195)</span>
               </h3>
               <p class="text-[11px] text-sky-200">แยกสิทธิ์ระดับ HQ vs รายสาขาดีลเลอร์อย่างเด็ดขาด • ตาราง PM ล่วงหน้า • ประวัติซ่อมเหมาจ่าย • ดาวน์โหลด Service Report PDF</p>
             </div>
@@ -43364,7 +43370,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
             <div>
               <h3 class="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 <i class="fa-solid fa-file-import text-amber-300"></i>
-                <span>📥 Import Daily / GIT Report (1-Click Evening Importer — V.1194)</span>
+                <span>📥 Import Daily / GIT Report (1-Click Evening Importer — V.1195)</span>
               </h3>
               <p class="text-[11px] text-amber-100">นำเข้าไฟล์ Excel / CSV ตอนเย็น: Daily Service Report, Stock on Hand และ Factory GIT Report (ETD/ETA Warehouse) พร้อมจับคู่อะไหล่ค้างเบิกอัตโนมัติ</p>
             </div>
@@ -43397,7 +43403,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
                 </label>
               </div>
             </div>
-            <div id="v1194EveningImportPreviewArea" class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+            <div id="v1195EveningImportPreviewArea" class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
               <div class="font-bold text-slate-700">เลือกไฟล์ Excel (.xlsx/.xls) หรือ CSV ด้านบนเพื่อวิเคราะห์และจับคู่อะไหล่ค้างเบิกอัตโนมัติ</div>
             </div>
           </div>
@@ -43411,7 +43417,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   window.processEveningReportFileV1194 = function(ev, reportType) {
     const file = ev?.target?.files?.[0];
     if (!file) return;
-    const area = document.getElementById('v1194EveningImportPreviewArea');
+    const area = document.getElementById('v1195EveningImportPreviewArea');
     if (area) area.innerHTML = '<div class="font-bold text-sky-800"><i class="fa-solid fa-spinner fa-spin mr-1"></i> กำลังอ่านและจับคู่อะไหล่ค้างเบิกจากไฟล์ ' + escHtmlV1194(file.name) + '...</div>';
 
     const reader = new FileReader();
@@ -43504,7 +43510,7 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
   };
 
   document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('hzk_v1194_compact_header') === '1') {
+    if (localStorage.getItem('hzk_v1195_compact_header') === '1') {
       window.toggleCompactHeaderV1194();
     }
     document.querySelectorAll('#partsTableBody tr.parts-row').forEach(tr => {
@@ -43515,6 +43521,8 @@ Van Stock T01-T08, Parts Catalog, Factory GIT/ETA & NAV ERP CSV)
 </script>
 
 
+<script src="./hzk_v1195_sales_mkt_omni_suite.js?v=1197" defer></script>
+<script src="./hzk_v1196_smart_bi_voice_studio.js?v=1197" defer></script>
 </body>
 </html>
 
